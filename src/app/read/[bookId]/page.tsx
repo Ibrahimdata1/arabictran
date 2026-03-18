@@ -9,13 +9,16 @@ import TableOfContents from '@/components/TableOfContents';
 import ContentSection from '@/components/ContentSection';
 import { allBooks } from '@/data/tafsir-sadi';
 import { DisplayMode } from '@/lib/types';
-import { getProgress, saveProgress } from '@/lib/reading-progress';
+import { getProgress, saveProgress, migrateProgress } from '@/lib/reading-progress';
 import PdfDownloadModal from '@/components/PdfDownloadModal';
+import { useSession } from 'next-auth/react';
 
 export default function ReaderPage() {
   const params = useParams();
   const bookId = params.bookId as string;
   const book = allBooks.find((b) => b.id === bookId);
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
 
   const [mode, setMode] = useState<DisplayMode>('bilingual');
   const [activeChapterId, setActiveChapterId] = useState<string | null>(null);
@@ -26,12 +29,17 @@ export default function ReaderPage() {
   const [mounted, setMounted] = useState(false);
   const [pdfModalOpen, setPdfModalOpen] = useState(false);
 
+  // Migrate anonymous progress on login
+  useEffect(() => {
+    if (userEmail) migrateProgress(userEmail);
+  }, [userEmail]);
+
   // Load saved progress
   useEffect(() => {
     setMounted(true);
     if (!book) return;
 
-    const progress = getProgress(bookId);
+    const progress = getProgress(bookId, userEmail);
     if (progress) {
       const chapterIdx = book.chapters.findIndex((ch) => ch.id === progress.chapterId);
       if (chapterIdx >= 0) {
@@ -42,7 +50,7 @@ export default function ReaderPage() {
     } else {
       setActiveChapterId(book.chapters[0]?.id || null);
     }
-  }, [book, bookId]);
+  }, [book, bookId, userEmail]);
 
   // Save progress on scroll (debounced)
   const handleScroll = useCallback(() => {
@@ -67,7 +75,7 @@ export default function ReaderPage() {
       sectionId: lastVisible,
       scrollPosition: window.scrollY,
       lastRead: Date.now(),
-    });
+    }, userEmail);
     setActiveSectionId(lastVisible);
   }, [book, bookId, currentChapterIndex]);
 

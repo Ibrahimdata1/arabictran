@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import UserMenu from './UserMenu';
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -91,6 +92,9 @@ export default function Navbar() {
               </svg>
               ประวัติการอ่าน
             </Link>
+
+            {/* User menu */}
+            <UserMenu />
 
             {/* Mobile menu button */}
             <button

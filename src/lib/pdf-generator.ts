@@ -94,7 +94,7 @@ export async function generateAndDownloadPdf(
     pdf.setFontSize(8);
     pdf.setTextColor(180, 180, 180);
     pdf.text(`${pageNum}`, pageW / 2, pageH - 8, { align: 'center' });
-    pdf.text('ArabicTran', pageW - marginX, pageH - 8, { align: 'right' });
+    // No watermark
   }
 
   // ===== COVER PAGE — luxury Islamic design =====
@@ -150,9 +150,7 @@ export async function generateAndDownloadPdf(
 
       <!-- Footer -->
       <div style="margin-top:28px;">
-        <div style="width:40px;height:1px;background:${cAccent};margin:0 auto 10px;"></div>
-        <p style="font-size:10px;color:#999;">ArabicTran - ห้องสมุดอิสลาม</p>
-        <p style="font-size:8px;color:#bbb;">arabictran.vercel.app</p>
+        <div style="width:40px;height:1px;background:${cAccent};margin:0 auto "></div>
       </div>
     </div>
   `;

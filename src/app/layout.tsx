@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Amiri, Noto_Sans_Thai, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import AuthProvider from "@/components/AuthProvider";
 
 const amiri = Amiri({
   variable: "--font-amiri",
@@ -40,7 +41,7 @@ export default function RootLayout({
         className={`${amiri.variable} ${notoThai.variable} ${cormorant.variable} antialiased`}
         style={{ fontFamily: "var(--font-noto-thai), 'Noto Sans Thai', sans-serif" }}
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Book } from '@/lib/types';
 import { useEffect, useState } from 'react';
 import { getReadingPercentage, getProgress } from '@/lib/reading-progress';
+import { useSession } from 'next-auth/react';
 
 interface BookCardProps {
   book: Book;
@@ -42,14 +43,16 @@ function ProgressRing({ percentage, size = 36 }: { percentage: number; size?: nu
 }
 
 export default function BookCard({ book, index }: BookCardProps) {
+  const { data: session } = useSession();
   const [progress, setProgress] = useState(0);
   const [hasProgress, setHasProgress] = useState(false);
 
   useEffect(() => {
-    const p = getReadingPercentage(book.id, book.totalChapters);
+    const email = session?.user?.email;
+    const p = getReadingPercentage(book.id, book.totalChapters, email);
     setProgress(p);
-    setHasProgress(!!getProgress(book.id));
-  }, [book.id, book.totalChapters]);
+    setHasProgress(!!getProgress(book.id, email));
+  }, [book.id, book.totalChapters, session]);
 
   return (
     <Link href={`/read/${book.id}`} className="block">

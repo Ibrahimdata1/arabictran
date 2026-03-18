@@ -2,49 +2,57 @@
 
 import { ReadingProgress } from './types';
 
-const STORAGE_KEY = 'arabictran_progress';
-const USER_ID_KEY = 'arabictran_user_id';
+const STORAGE_PREFIX = 'arabictran_progress';
 
-function generateUserId(): string {
-  return 'user_' + Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
-}
-
-export function getUserId(): string {
-  if (typeof window === 'undefined') return '';
-  let id = localStorage.getItem(USER_ID_KEY);
-  if (!id) {
-    id = generateUserId();
-    localStorage.setItem(USER_ID_KEY, id);
+// Get storage key — if user email provided, use email-based key for cross-device sync
+function getStorageKey(userEmail?: string | null): string {
+  if (userEmail) {
+    return `${STORAGE_PREFIX}_${userEmail}`;
   }
-  return id;
+  return STORAGE_PREFIX;
 }
 
-export function getProgress(bookId: string): ReadingProgress | null {
+export function getProgress(bookId: string, userEmail?: string | null): ReadingProgress | null {
   if (typeof window === 'undefined') return null;
-  const data = localStorage.getItem(STORAGE_KEY);
+  const data = localStorage.getItem(getStorageKey(userEmail));
   if (!data) return null;
   const all: Record<string, ReadingProgress> = JSON.parse(data);
   return all[bookId] || null;
 }
 
-export function getAllProgress(): Record<string, ReadingProgress> {
+export function getAllProgress(userEmail?: string | null): Record<string, ReadingProgress> {
   if (typeof window === 'undefined') return {};
-  const data = localStorage.getItem(STORAGE_KEY);
+  const data = localStorage.getItem(getStorageKey(userEmail));
   if (!data) return {};
   return JSON.parse(data);
 }
 
-export function saveProgress(progress: ReadingProgress): void {
+export function saveProgress(progress: ReadingProgress, userEmail?: string | null): void {
   if (typeof window === 'undefined') return;
-  const all = getAllProgress();
+  const key = getStorageKey(userEmail);
+  const all = getAllProgress(userEmail);
   all[progress.bookId] = { ...progress, lastRead: Date.now() };
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  localStorage.setItem(key, JSON.stringify(all));
 }
 
-export function getReadingPercentage(bookId: string, totalChapters: number): number {
-  const progress = getProgress(bookId);
+export function getReadingPercentage(bookId: string, totalChapters: number, userEmail?: string | null): number {
+  const progress = getProgress(bookId, userEmail);
   if (!progress) return 0;
-  // Simple percentage based on chapter position
   const chapterNum = parseInt(progress.chapterId.split('-').pop() || '0');
   return Math.round((chapterNum / totalChapters) * 100);
+}
+
+// Migrate anonymous progress to user account on first login
+export function migrateProgress(userEmail: string): void {
+  if (typeof window === 'undefined') return;
+  const anonData = localStorage.getItem(STORAGE_PREFIX);
+  if (!anonData) return;
+
+  const userKey = getStorageKey(userEmail);
+  const existing = localStorage.getItem(userKey);
+
+  if (!existing) {
+    // First login — copy anonymous progress to user account
+    localStorage.setItem(userKey, anonData);
+  }
 }
