@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+:root {
+  --color-cream: #FDF8F0;
+  --color-cream-dark: #F5EDE0;
+  --color-teal: #0D7377;
+  --color-teal-dark: #095456;
+  --color-teal-light: #0E8B8F;
+  --color-gold: #C4A35A;
+  --color-gold-light: #D4B96E;
+  --color-gold-pale: #F0E6C8;
+  --color-ink: #2C2417;
+  --color-ink-light: #5C4F3D;
+  --color-paper: #FEFCF7;
+  --color-verse-bg: #F0F7F7;
+  --color-verse-border: #B8D8D8;
+  --color-hadith-bg: #FFF8EC;
+  --color-hadith-border: #E8D5A8;
+  --color-sidebar-bg: #F8F4EC;
+}
+
+@theme inline {
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-ink);
+  --font-sans: var(--font-noto-thai);
+  --font-arabic: var(--font-amiri);
+  --font-display: var(--font-cormorant);
+}
+
+/* Islamic geometric pattern - subtle SVG background */
+.pattern-islamic {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C4A35A' stroke-width='0.5' opacity='0.12'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z'/%3E%3Cpath d='M30 10 L50 30 L30 50 L10 30Z'/%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+.pattern-islamic-dense {
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C4A35A' stroke-width='0.4' opacity='0.08'%3E%3Cpath d='M20 0 L40 20 L20 40 L0 20Z'/%3E%3Cpath d='M20 8 L32 20 L20 32 L8 20Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 40px 40px;
+}
+
+/* Gold decorative divider */
+.divider-gold {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold) 20%, var(--color-gold) 80%, transparent);
+  opacity: 0.5;
+}
+
+/* Decorative border for book covers */
+.book-cover-border {
+  border: 2px solid var(--color-gold);
+  position: relative;
+}
+.book-cover-border::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid var(--color-gold-light);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Quran verse styling */
+.quran-verse {
+  background: var(--color-verse-bg);
+  border-right: 4px solid var(--color-teal);
+  border-radius: 0 8px 8px 0;
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+}
+
+/* Hadith styling */
+.hadith-block {
+  background: var(--color-hadith-bg);
+  border-right: 4px solid var(--color-gold);
+  border-radius: 0 8px 8px 0;
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+}
+
+/* Arabic text styling */
+.arabic-text {
+  direction: rtl;
+  text-align: right;
+  font-family: var(--font-arabic), 'Amiri', serif;
+  line-height: 2.2;
+  letter-spacing: 0.01em;
+}
+
+/* Thai text styling */
+.thai-text {
+  direction: ltr;
+  text-align: left;
+  font-family: var(--font-sans), 'Noto Sans Thai', sans-serif;
+  line-height: 1.9;
+}
+
+/* Reading content styles */
+.reading-content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Scrollbar styling for sidebar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-gold-light);
+  border-radius: 2px;
+}
+
+/* Progress bar */
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+/* Page transitions */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-stagger-1 { animation-delay: 0.05s; }
+.animate-stagger-2 { animation-delay: 0.1s; }
+.animate-stagger-3 { animation-delay: 0.15s; }
+.animate-stagger-4 { animation-delay: 0.2s; }
+.animate-stagger-5 { animation-delay: 0.25s; }
+.animate-stagger-6 { animation-delay: 0.3s; }
+
+/* Book card hover */
+.book-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.book-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(13, 115, 119, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Toggle button active state */
+.toggle-active {
+  background: var(--color-teal);
+  color: white;
+  box-shadow: 0 2px 8px rgba(13, 115, 119, 0.3);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile sidebar overlay */
+@media (max-width: 1024px) {
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 40;
+  }
+}
+
+/* Active TOC item */
+.toc-active {
+  color: var(--color-teal);
+  font-weight: 600;
+  border-right-color: var(--color-teal);
+}
+
+/* Search highlight */
+mark {
+  background: var(--color-gold-pale);
+  color: var(--color-ink);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Print-friendly */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; }
+  .quran-verse { border: 1px solid #ccc; }
+}
