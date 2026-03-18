@@ -11,7 +11,7 @@ export default function LanguageToggle({ mode, onChange }: LanguageToggleProps) 
   const modes: { value: DisplayMode; label: string; sublabel: string }[] = [
     { value: 'arabic', label: 'عربي', sublabel: 'อาหรับ' },
     { value: 'bilingual', label: 'عربي-ไทย', sublabel: 'คู่ภาษา' },
-    { value: 'thai', label: 'ไทย', sublabel: 'ไทย' },
+    { value: 'thai', label: 'ไทย', sublabel: 'แปลไทย' },
   ];
 
   return (

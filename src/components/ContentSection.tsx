@@ -8,8 +8,11 @@ interface ContentSectionProps {
 }
 
 export default function ContentSection({ section, mode }: ContentSectionProps) {
-  const showArabic = mode === 'arabic' || mode === 'bilingual';
+  // "ไทยล้วน" mode: Quran/Hadith ALWAYS show Arabic+Thai, only tafsir text is Thai-only
+  const showArabic = mode === 'arabic' || mode === 'bilingual' || section.type === 'quran' || section.type === 'hadith';
   const showThai = mode === 'thai' || mode === 'bilingual';
+  // For tafsir in "thai" mode: hide Arabic
+  const showTafsirAr = mode === 'arabic' || mode === 'bilingual';
 
   if (section.type === 'quran') {
     return (
@@ -24,16 +27,12 @@ export default function ContentSection({ section, mode }: ContentSectionProps) {
             </span>
           </div>
         )}
-        {showArabic && (
-          <p className="arabic-text text-xl leading-[2.4] text-[var(--color-ink)] mb-3" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
-            {section.contentAr}
-          </p>
-        )}
-        {showThai && (
-          <p className="thai-text text-[15px] leading-[2] text-[var(--color-ink-light)]">
-            {section.contentTh}
-          </p>
-        )}
+        <p className="arabic-text text-xl leading-[2.4] text-[var(--color-ink)] mb-3" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
+          {section.contentAr}
+        </p>
+        <p className="thai-text text-[15px] leading-[2] text-[var(--color-ink-light)]">
+          {section.contentTh}
+        </p>
       </div>
     );
   }
@@ -52,24 +51,20 @@ export default function ContentSection({ section, mode }: ContentSectionProps) {
             </span>
           </div>
         )}
-        {showArabic && (
-          <p className="arabic-text text-lg leading-[2.2] text-[var(--color-ink)] mb-3" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
-            {section.contentAr}
-          </p>
-        )}
-        {showThai && (
-          <p className="thai-text text-[15px] leading-[2] text-[var(--color-ink-light)]">
-            {section.contentTh}
-          </p>
-        )}
+        <p className="arabic-text text-lg leading-[2.2] text-[var(--color-ink)] mb-3" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
+          {section.contentAr}
+        </p>
+        <p className="thai-text text-[15px] leading-[2] text-[var(--color-ink-light)]">
+          {section.contentTh}
+        </p>
       </div>
     );
   }
 
-  // Regular text
+  // Tafsir commentary — respects mode (in "thai" mode, only Thai)
   return (
     <div className="my-5" id={section.id}>
-      {section.titleAr && showArabic && (
+      {section.titleAr && showTafsirAr && (
         <h3 className="arabic-text text-lg font-bold text-[var(--color-ink)] mb-2" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
           {section.titleAr}
         </h3>
@@ -79,7 +74,7 @@ export default function ContentSection({ section, mode }: ContentSectionProps) {
           {section.titleTh}
         </h3>
       )}
-      {showArabic && (
+      {showTafsirAr && (
         <p className="arabic-text text-lg leading-[2.2] text-[var(--color-ink)] mb-3" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
           {section.contentAr}
         </p>
