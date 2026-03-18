@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Book, DisplayMode } from '@/lib/types';
 import { getVolumeInfo, generateAndDownloadPdf } from '@/lib/pdf-generator';
 
@@ -14,6 +14,29 @@ export default function PdfDownloadModal({ book, isOpen, onClose }: PdfDownloadM
   const [mode, setMode] = useState<DisplayMode>('bilingual');
   const [generating, setGenerating] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
+  const abortRef = useRef(false);
+
+  const handleCancel = useCallback(() => {
+    if (generating) {
+      abortRef.current = true;
+      setGenerating(null);
+      setProgress(0);
+    } else {
+      onClose();
+    }
+  }, [generating, onClose]);
+
+  // Esc key to close/cancel
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleCancel();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [isOpen, handleCancel]);
 
   if (!isOpen) return null;
 
@@ -21,20 +44,31 @@ export default function PdfDownloadModal({ book, isOpen, onClose }: PdfDownloadM
 
   const handleDownload = async (volumeIndex?: number) => {
     const key = volumeIndex !== undefined ? `vol-${volumeIndex}` : 'all';
+    abortRef.current = false;
     setGenerating(key);
     setProgress(0);
 
     try {
+      const onProgress = (pct: number) => {
+        if (abortRef.current) throw new Error('cancelled');
+        setProgress(pct);
+      };
+
       if (volumeIndex !== undefined) {
         const vol = volumes[volumeIndex];
-        await generateAndDownloadPdf(book, vol.chapters, mode, vol.label, setProgress);
+        await generateAndDownloadPdf(book, vol.chapters, mode, vol.label, onProgress);
       } else {
-        await generateAndDownloadPdf(book, book.chapters, mode, undefined, setProgress);
+        await generateAndDownloadPdf(book, book.chapters, mode, undefined, onProgress);
       }
     } catch (err) {
-      console.error('PDF error:', err);
-      alert('เกิดข้อผิดพลาด กรุณาลองใหม่');
+      if ((err as Error).message === 'cancelled') {
+        // User cancelled, do nothing
+      } else {
+        console.error('PDF error:', err);
+        alert('เกิดข้อผิดพลาด กรุณาลองใหม่');
+      }
     } finally {
+      abortRef.current = false;
       setGenerating(null);
       setProgress(0);
     }
@@ -42,7 +76,7 @@ export default function PdfDownloadModal({ book, isOpen, onClose }: PdfDownloadM
 
   return (
     <>
-      <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm" onClick={generating ? undefined : onClose} />
+      <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm" onClick={handleCancel} />
 
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <div className="pointer-events-auto w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-[var(--color-gold)]/15 overflow-hidden" onClick={(e) => e.stopPropagation()}>
@@ -60,30 +94,40 @@ export default function PdfDownloadModal({ book, isOpen, onClose }: PdfDownloadM
                   <p className="text-[11px] text-white/70">{book.titleTh}</p>
                 </div>
               </div>
-              {!generating && (
-                <button onClick={onClose} className="flex h-8 w-8 items-center justify-center rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                    <path d="M18 6 6 18" /><path d="m6 6 12 12" />
-                  </svg>
-                </button>
-              )}
+              <button onClick={handleCancel} className="flex h-8 w-8 items-center justify-center rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors" title="ปิด (Esc)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                </svg>
+              </button>
             </div>
           </div>
 
           {/* Progress bar when generating */}
           {generating && (
-            <div className="px-6 py-4 bg-[var(--color-cream)]">
-              <div className="flex items-center gap-3 mb-2">
+            <div className="px-6 py-5 bg-[var(--color-cream)]">
+              <div className="flex items-center gap-3 mb-3">
                 <div className="animate-spin h-4 w-4 border-2 border-[var(--color-teal)] border-t-transparent rounded-full" />
                 <span className="text-sm font-medium text-[var(--color-teal)]">กำลังสร้าง PDF... {progress}%</span>
               </div>
-              <div className="w-full h-2 bg-[var(--color-cream-dark)] rounded-full overflow-hidden">
+              <div className="w-full h-2.5 bg-[var(--color-cream-dark)] rounded-full overflow-hidden">
                 <div
                   className="h-full bg-[var(--color-teal)] rounded-full transition-all duration-300"
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <p className="text-[10px] text-[var(--color-ink-light)] mt-2">กรุณารอสักครู่ อย่าปิดหน้าต่างนี้</p>
+
+              {/* Cancel button */}
+              <button
+                onClick={handleCancel}
+                className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl border-2 border-red-300 px-4 py-2.5 text-sm font-medium text-red-500 hover:bg-red-50 hover:border-red-400 transition-colors"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                </svg>
+                ยกเลิก
+              </button>
+
+              <p className="text-[10px] text-[var(--color-ink-light)] mt-3 text-center">กด Esc หรือปุ่มยกเลิกเพื่อหยุด</p>
             </div>
           )}
 
