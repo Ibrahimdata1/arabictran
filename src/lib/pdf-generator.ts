@@ -94,17 +94,17 @@ export async function generateAndDownloadPdf(
   onProgress?.(5);
   const coverHtml = `
     <div style="text-align:center;padding:60px 30px;">
-      <p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;font-size:18px;color:#C4A35A;margin:0 0 40px 0;">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
-      <div style="border:2px solid #C4A35A;padding:40px 30px;display:inline-block;position:relative;">
-        <p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;font-size:28px;font-weight:bold;color:#0D7377;margin:0 0 10px 0;">${escHtml(book.titleAr)}</p>
-        <div style="width:100px;height:2px;background:linear-gradient(90deg,transparent,#C4A35A,transparent);margin:12px auto;"></div>
+      <p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;font-size:18px;color:#E8A04C;margin:0 0 40px 0;">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+      <div style="border:2px solid #E8A04C;padding:40px 30px;display:inline-block;position:relative;">
+        <p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;font-size:28px;font-weight:bold;color:#C75B12;margin:0 0 10px 0;">${escHtml(book.titleAr)}</p>
+        <div style="width:100px;height:2px;background:linear-gradient(90deg,transparent,#E8A04C,transparent);margin:12px auto;"></div>
         <p style="font-size:20px;font-weight:600;color:#2C2417;margin:10px 0;">${escHtml(book.titleTh)}</p>
         <p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;font-size:13px;color:#666;margin:16px 0 4px 0;">${escHtml(book.authorAr)}</p>
         <p style="font-size:11px;color:#666;margin:0;">${escHtml(book.authorTh)}</p>
-        ${volumeLabel ? `<p style="font-size:14px;font-weight:600;color:#0D7377;margin:20px 0 0;padding:6px 20px;border:1.5px solid #0D737740;border-radius:6px;display:inline-block;">${escHtml(volumeLabel)}</p>` : ''}
+        ${volumeLabel ? `<p style="font-size:14px;font-weight:600;color:#C75B12;margin:20px 0 0;padding:6px 20px;border:1.5px solid #C75B1240;border-radius:6px;display:inline-block;">${escHtml(volumeLabel)}</p>` : ''}
       </div>
       <div style="margin-top:40px;">
-        <div style="width:60px;height:1px;background:#C4A35A;margin:0 auto 8px;"></div>
+        <div style="width:60px;height:1px;background:#E8A04C;margin:0 auto 8px;"></div>
         <p style="font-size:9px;color:#aaa;">ArabicTran - ห้องสมุดอิสลาม</p>
         <p style="font-size:8px;color:#ccc;">arabictran.vercel.app</p>
       </div>
@@ -120,7 +120,7 @@ export async function generateAndDownloadPdf(
   pdf.addPage();
   currentY = marginTop;
 
-  let tocHtml = `<div style="padding:10px 0;"><h2 style="text-align:center;font-size:16px;color:#0D7377;margin:0 0 16px;">สารบัญ</h2>`;
+  let tocHtml = `<div style="padding:10px 0;"><h2 style="text-align:center;font-size:16px;color:#C75B12;margin:0 0 16px;">สารบัญ</h2>`;
   chapters.forEach((ch, i) => {
     tocHtml += `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px dotted #ddd;">
       <span style="font-size:10px;color:#2C2417;">${i + 1}. ${escHtml(ch.titleTh)}</span>
@@ -141,9 +141,9 @@ export async function generateAndDownloadPdf(
     currentY = marginTop;
 
     const chHeaderHtml = `
-      <div style="text-align:center;padding:16px 0;border-top:2px solid #0D7377;border-bottom:2px solid #0D7377;">
-        <p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;font-size:20px;font-weight:bold;color:#0D7377;margin:0 0 6px;">${escHtml(chapter.titleAr)}</p>
-        <div style="width:60px;height:1.5px;background:linear-gradient(90deg,transparent,#C4A35A,transparent);margin:6px auto;"></div>
+      <div style="text-align:center;padding:16px 0;border-top:2px solid #C75B12;border-bottom:2px solid #C75B12;">
+        <p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;font-size:20px;font-weight:bold;color:#C75B12;margin:0 0 6px;">${escHtml(chapter.titleAr)}</p>
+        <div style="width:60px;height:1.5px;background:linear-gradient(90deg,transparent,#E8A04C,transparent);margin:6px auto;"></div>
         <p style="font-size:14px;font-weight:600;color:#2C2417;margin:6px 0 0;">${escHtml(chapter.titleTh)}</p>
       </div>
     `;
@@ -158,17 +158,17 @@ export async function generateAndDownloadPdf(
       let secHtml = '';
 
       if (section.type === 'quran') {
-        secHtml = `<div style="background:#EFF7F7;border-right:3px solid #0D7377;border-radius:0 6px 6px 0;padding:10px 14px;margin:6px 0;">`;
+        secHtml = `<div style="background:#FFF5EB;border-right:3px solid #C75B12;border-radius:0 6px 6px 0;padding:10px 14px;margin:6px 0;">`;
         if (section.reference) {
-          secHtml += `<div style="font-size:11px;color:#0D7377;font-weight:600;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #cde8e8;">📖 ${escHtml(section.reference)}</div>`;
+          secHtml += `<div style="font-size:11px;color:#C75B12;font-weight:600;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #F0D4B0;">📖 ${escHtml(section.reference)}</div>`;
         }
         if (showAr) secHtml += `<p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;text-align:right;font-size:18px;line-height:2.2;color:#1a1a1a;margin:0 0 5px;">${escHtml(section.contentAr)}</p>`;
         if (showTh) secHtml += `<p style="font-size:14px;line-height:1.9;color:#444;margin:0;">${escHtml(section.contentTh)}</p>`;
         secHtml += `</div>`;
       } else if (section.type === 'hadith') {
-        secHtml = `<div style="background:#FFF8EC;border-right:3px solid #C4A35A;border-radius:0 6px 6px 0;padding:10px 14px;margin:6px 0;">`;
+        secHtml = `<div style="background:#FEF3E2;border-right:3px solid #E8A04C;border-radius:0 6px 6px 0;padding:10px 14px;margin:6px 0;">`;
         if (section.reference) {
-          secHtml += `<div style="font-size:11px;color:#C4A35A;font-weight:600;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #e8d5a8;">📜 ${escHtml(section.reference)}</div>`;
+          secHtml += `<div style="font-size:11px;color:#E8A04C;font-weight:600;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #E8C090;">📜 ${escHtml(section.reference)}</div>`;
         }
         if (showAr) secHtml += `<p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;text-align:right;font-size:16px;line-height:2.2;color:#1a1a1a;margin:0 0 5px;">${escHtml(section.contentAr)}</p>`;
         if (showTh) secHtml += `<p style="font-size:14px;line-height:1.9;color:#444;margin:0;">${escHtml(section.contentTh)}</p>`;
@@ -179,7 +179,7 @@ export async function generateAndDownloadPdf(
         if (section.titleTh && showTh) secHtml += `<p style="font-size:14px;font-weight:600;color:#2C2417;margin:0 0 3px;">${escHtml(section.titleTh)}</p>`;
         if (showAr) secHtml += `<p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;text-align:right;font-size:16px;line-height:2.2;color:#2a2a2a;margin:0 0 4px;">${escHtml(section.contentAr)}</p>`;
         if (showTh) secHtml += `<p style="font-size:14px;line-height:1.9;color:#444;margin:0;">${escHtml(section.contentTh)}</p>`;
-        if (mode === 'bilingual') secHtml += `<div style="height:1px;background:linear-gradient(90deg,transparent,#C4A35A30,transparent);margin:6px 0;"></div>`;
+        if (mode === 'bilingual') secHtml += `<div style="height:1px;background:linear-gradient(90deg,transparent,#E8A04C40,transparent);margin:6px 0;"></div>`;
         secHtml += `</div>`;
       }
 
