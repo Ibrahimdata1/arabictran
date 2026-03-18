@@ -50,7 +50,7 @@ export async function generateAndDownloadPdf(
   const marginBot = 20;
   const contentW = pageW - marginX * 2;
   const usableH = pageH - marginTop - marginBot;
-  const renderWidthPx = 680;
+  const renderWidthPx = 900;
 
   // Colors
   const cPrimary = '#C75B12';
@@ -64,10 +64,12 @@ export async function generateAndDownloadPdf(
 
   async function renderBlock(html: string): Promise<{ imgData: string; wMm: number; hMm: number }> {
     const container = document.createElement('div');
-    container.style.cssText = `position:fixed;top:-9999px;left:-9999px;width:${renderWidthPx}px;background:white;font-family:'Noto Sans Thai',sans-serif;color:${cInk};padding:8px 12px;`;
+    container.style.cssText = `position:fixed;top:-9999px;left:-9999px;width:${renderWidthPx}px;background:white;font-family:'Noto Sans Thai',sans-serif;color:${cInk};padding:8px 16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;`;
     container.innerHTML = html;
     document.body.appendChild(container);
     await document.fonts.ready;
+    // Extra wait for Arabic font shaping
+    await new Promise(r => setTimeout(r, 100));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const canvas = await html2canvas(container, { backgroundColor: '#ffffff', logging: false, windowWidth: renderWidthPx } as any);
     document.body.removeChild(container);
