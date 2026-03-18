@@ -23,7 +23,6 @@ export default function PdfDownloadModal({ book, isOpen, onClose }: PdfDownloadM
     return {
       number: i + 1,
       label: `เล่มที่ ${i + 1}`,
-      chapterRange: `สูเราะฮ์ ${chs[0].number} - ${chs[chs.length - 1].number}`,
       chapterNames: `${chs[0].titleTh} — ${chs[chs.length - 1].titleTh}`,
       count: chs.length,
     };
@@ -126,8 +125,8 @@ export default function PdfDownloadModal({ book, isOpen, onClose }: PdfDownloadM
                           {vol.number}
                         </div>
                         <div className="text-left">
-                          <span className="block text-xs font-medium">{vol.label}</span>
-                          <span className="block text-[10px] opacity-60">{vol.chapterRange} ({vol.count} สูเราะฮ์)</span>
+                          <span className="block text-xs font-medium">{vol.label} ({vol.count} สูเราะฮ์)</span>
+                          <span className="block text-[10px] opacity-60 leading-snug">{vol.chapterNames}</span>
                         </div>
                       </div>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
