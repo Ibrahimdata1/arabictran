@@ -50,7 +50,7 @@ export async function generateAndDownloadPdf(
   const marginBot = 20;
   const contentW = pageW - marginX * 2;
   const usableH = pageH - marginTop - marginBot;
-  const renderWidthPx = 900;
+  const renderWidthPx = 580;
 
   // Colors
   const cPrimary = '#C75B12';
