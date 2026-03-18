@@ -160,25 +160,25 @@ export async function generateAndDownloadPdf(
       if (section.type === 'quran') {
         secHtml = `<div style="background:#EFF7F7;border-right:3px solid #0D7377;border-radius:0 6px 6px 0;padding:10px 14px;margin:6px 0;">`;
         if (section.reference) {
-          secHtml += `<div style="font-size:8px;color:#0D7377;font-weight:600;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #cde8e8;">📖 ${escHtml(section.reference)}</div>`;
+          secHtml += `<div style="font-size:11px;color:#0D7377;font-weight:600;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #cde8e8;">📖 ${escHtml(section.reference)}</div>`;
         }
-        if (showAr) secHtml += `<p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;text-align:right;font-size:13px;line-height:2.0;color:#1a1a1a;margin:0 0 5px;">${escHtml(section.contentAr)}</p>`;
-        if (showTh) secHtml += `<p style="font-size:10px;line-height:1.8;color:#444;margin:0;">${escHtml(section.contentTh)}</p>`;
+        if (showAr) secHtml += `<p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;text-align:right;font-size:18px;line-height:2.2;color:#1a1a1a;margin:0 0 5px;">${escHtml(section.contentAr)}</p>`;
+        if (showTh) secHtml += `<p style="font-size:14px;line-height:1.9;color:#444;margin:0;">${escHtml(section.contentTh)}</p>`;
         secHtml += `</div>`;
       } else if (section.type === 'hadith') {
         secHtml = `<div style="background:#FFF8EC;border-right:3px solid #C4A35A;border-radius:0 6px 6px 0;padding:10px 14px;margin:6px 0;">`;
         if (section.reference) {
-          secHtml += `<div style="font-size:8px;color:#C4A35A;font-weight:600;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #e8d5a8;">📜 ${escHtml(section.reference)}</div>`;
+          secHtml += `<div style="font-size:11px;color:#C4A35A;font-weight:600;margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid #e8d5a8;">📜 ${escHtml(section.reference)}</div>`;
         }
-        if (showAr) secHtml += `<p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;text-align:right;font-size:12px;line-height:2.0;color:#1a1a1a;margin:0 0 5px;">${escHtml(section.contentAr)}</p>`;
-        if (showTh) secHtml += `<p style="font-size:10px;line-height:1.8;color:#444;margin:0;">${escHtml(section.contentTh)}</p>`;
+        if (showAr) secHtml += `<p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;text-align:right;font-size:16px;line-height:2.2;color:#1a1a1a;margin:0 0 5px;">${escHtml(section.contentAr)}</p>`;
+        if (showTh) secHtml += `<p style="font-size:14px;line-height:1.9;color:#444;margin:0;">${escHtml(section.contentTh)}</p>`;
         secHtml += `</div>`;
       } else {
         secHtml = `<div style="margin:6px 0;">`;
         if (section.titleAr && showAr) secHtml += `<p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;text-align:right;font-size:12px;font-weight:bold;color:#2C2417;margin:0 0 3px;">${escHtml(section.titleAr)}</p>`;
-        if (section.titleTh && showTh) secHtml += `<p style="font-size:10px;font-weight:600;color:#2C2417;margin:0 0 3px;">${escHtml(section.titleTh)}</p>`;
-        if (showAr) secHtml += `<p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;text-align:right;font-size:12px;line-height:2.0;color:#2a2a2a;margin:0 0 4px;">${escHtml(section.contentAr)}</p>`;
-        if (showTh) secHtml += `<p style="font-size:10px;line-height:1.8;color:#444;margin:0;">${escHtml(section.contentTh)}</p>`;
+        if (section.titleTh && showTh) secHtml += `<p style="font-size:14px;font-weight:600;color:#2C2417;margin:0 0 3px;">${escHtml(section.titleTh)}</p>`;
+        if (showAr) secHtml += `<p style="font-family:'Amiri','Traditional Arabic',serif;direction:rtl;text-align:right;font-size:16px;line-height:2.2;color:#2a2a2a;margin:0 0 4px;">${escHtml(section.contentAr)}</p>`;
+        if (showTh) secHtml += `<p style="font-size:14px;line-height:1.9;color:#444;margin:0;">${escHtml(section.contentTh)}</p>`;
         if (mode === 'bilingual') secHtml += `<div style="height:1px;background:linear-gradient(90deg,transparent,#C4A35A30,transparent);margin:6px 0;"></div>`;
         secHtml += `</div>`;
       }

@@ -10,16 +10,33 @@ interface BookCardProps {
   index: number;
 }
 
-function ProgressRing({ percentage, size = 34 }: { percentage: number; size?: number }) {
-  const strokeWidth = 2.5;
+function ProgressRing({ percentage, size = 36 }: { percentage: number; size?: number }) {
+  const strokeWidth = 3;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percentage / 100) * circumference;
 
   return (
     <svg width={size} height={size} className="progress-ring">
-      <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="var(--gold-pale)" strokeWidth={strokeWidth} />
-      <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="var(--gold)" strokeWidth={strokeWidth} strokeDasharray={circumference} strokeDashoffset={offset} strokeLinecap="round" />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="none"
+        stroke="var(--color-gold-pale)"
+        strokeWidth={strokeWidth}
+      />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="none"
+        stroke="var(--color-teal)"
+        strokeWidth={strokeWidth}
+        strokeDasharray={circumference}
+        strokeDashoffset={offset}
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -36,53 +53,89 @@ export default function BookCard({ book, index }: BookCardProps) {
 
   return (
     <Link href={`/read/${book.id}`} className="block">
-      <div className={`book-card group relative overflow-hidden rounded-xl bg-white shadow-sm border border-[var(--gold)]/10 opacity-0 animate-fade-in-up animate-stagger-${Math.min(index + 1, 6)}`}>
-        {/* Cover */}
-        <div className="relative h-52 overflow-hidden bg-[var(--midnight)]">
+      <div
+        className={`book-card group relative overflow-hidden rounded-xl bg-white shadow-sm border border-[var(--color-gold)]/10 opacity-0 animate-fade-in-up animate-stagger-${Math.min(index + 1, 6)}`}
+      >
+        {/* Book cover area */}
+        <div
+          className="relative h-52 overflow-hidden"
+          style={{ backgroundColor: book.coverColor }}
+        >
+          {/* Islamic pattern overlay */}
           <div className="absolute inset-0 pattern-islamic opacity-30" />
-          {/* Gold frame */}
-          <div className="absolute inset-3 border border-[var(--gold)]/25 rounded" />
-          <div className="absolute inset-4 border border-[var(--gold)]/10 rounded-sm" />
 
+          {/* Decorative border frame */}
+          <div className="absolute inset-3 border border-white/20 rounded-lg" />
+          <div className="absolute inset-4 border border-white/10 rounded-md" />
+
+          {/* Book title on cover */}
           <div className="relative flex flex-col items-center justify-center h-full px-6 text-center">
-            <p className="text-xl font-bold text-[var(--gold)] leading-relaxed mb-2 drop-shadow-sm" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }} dir="rtl">
+            <p
+              className="text-2xl font-bold text-white/95 leading-relaxed mb-2 drop-shadow-sm"
+              style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}
+              dir="rtl"
+            >
               {book.titleAr}
             </p>
-            <div className="w-12 h-px bg-[var(--gold)]/40 my-1.5" />
-            <p className="text-[10px] text-[var(--gold)]/50" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }} dir="rtl">
+            <div className="w-16 h-px bg-white/40 my-1" />
+            <p
+              className="text-xs text-white/70 mt-1"
+              style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}
+              dir="rtl"
+            >
               {book.authorAr}
             </p>
           </div>
 
+          {/* Progress indicator */}
           {hasProgress && (
             <div className="absolute top-3 left-3">
               <div className="relative flex items-center justify-center">
                 <ProgressRing percentage={progress} />
-                <span className="absolute text-[8px] font-bold text-[var(--gold)]">{progress}%</span>
+                <span className="absolute text-[9px] font-bold text-white">
+                  {progress}%
+                </span>
               </div>
             </div>
           )}
         </div>
 
-        {/* Info */}
+        {/* Card content */}
         <div className="p-4">
-          <h3 className="text-sm font-semibold text-[var(--ink)] mb-1 group-hover:text-[var(--midnight)] transition-colors">
+          <h3 className="text-base font-semibold text-[var(--color-ink)] mb-1 group-hover:text-[var(--color-teal)] transition-colors">
             {book.titleTh}
           </h3>
-          <p className="text-xs text-[var(--ink-faint)] mb-2">{book.authorTh}</p>
-          <p className="text-[11px] text-[var(--ink-faint)]/70 line-clamp-2 leading-relaxed font-light">
+          <p className="text-sm text-[var(--color-ink-light)] mb-3">
+            {book.authorTh}
+          </p>
+          <p className="text-xs text-[var(--color-ink-light)]/70 line-clamp-2 leading-relaxed">
             {book.description}
           </p>
 
-          <div className="mt-3 pt-3 border-t border-[var(--gold)]/10 flex items-center justify-between">
-            <span className="text-[10px] text-[var(--ink-faint)]">{book.totalChapters} สูเราะฮ์</span>
+          {/* Bottom bar */}
+          <div className="mt-3 pt-3 border-t border-[var(--color-gold)]/10 flex items-center justify-between">
+            <span className="text-xs text-[var(--color-ink-light)]">
+              {book.totalChapters} บท
+            </span>
             <div className="flex items-center gap-2">
               {book.hasPdf && (
-                <span className="text-[9px] px-1.5 py-0.5 rounded bg-[var(--gold-pale)] text-[var(--gold-dim)]">PDF</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--color-gold-pale)] text-[var(--color-ink-light)]">
+                  PDF
+                </span>
               )}
-              <span className="text-[11px] font-medium text-[var(--midnight)]">
-                {hasProgress ? 'อ่านต่อ →' : 'เริ่มอ่าน →'}
-              </span>
+              {hasProgress ? (
+                <span className="text-xs font-medium text-[var(--color-teal)] flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                  อ่านต่อ
+                </span>
+              ) : (
+                <span className="text-xs font-medium text-[var(--color-teal)]">
+                  เริ่มอ่าน →
+                </span>
+              )}
             </div>
           </div>
         </div>

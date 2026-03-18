@@ -19,50 +19,37 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[var(--ivory)]">
+    <div className="min-h-screen bg-[var(--color-cream)]">
       <Navbar />
 
-      {/* Hero — Ottoman manuscript inspired */}
-      <section className="relative overflow-hidden bg-[var(--midnight)]">
-        <div className="absolute inset-0 pattern-islamic opacity-40" />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--midnight)]" />
-
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-[var(--color-teal)] text-white">
+        <div className="absolute inset-0 pattern-islamic opacity-20" />
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="max-w-2xl">
-            {/* Bismillah */}
-            <p
-              className="text-lg text-[var(--gold)]/60 mb-6"
-              style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}
-              dir="rtl"
-            >
-              بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
-            </p>
-
             <h1
-              className="text-4xl sm:text-5xl font-bold leading-tight text-white"
+              className="text-4xl font-bold leading-tight sm:text-5xl"
               style={{ fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif" }}
             >
               ห้องสมุดอิสลาม
             </h1>
             <p
-              className="mt-3 text-2xl text-[var(--gold)]"
+              className="mt-2 text-2xl text-white/70"
               style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}
               dir="rtl"
             >
               المكتبة الإسلامية
             </p>
-            <p className="mt-5 text-sm leading-relaxed text-white/50 max-w-lg font-light">
+            <p className="mt-4 text-base leading-relaxed text-white/80 max-w-lg">
               อ่านหนังสืออิสลามแปลไทย พร้อมต้นฉบับภาษาอาหรับ
               สามารถเลือกอ่านได้ทั้งแบบอาหรับ คู่ภาษา หรือไทยล้วน
             </p>
-
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/#library"
-                className="inline-flex items-center gap-2 rounded-lg bg-[var(--gold)] px-6 py-3 text-sm font-semibold text-[var(--midnight)] shadow-lg shadow-[var(--gold)]/20 hover:bg-[var(--gold-light)] transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-[var(--color-teal)] shadow-lg shadow-black/10 hover:bg-white/95 transition-colors"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
                 </svg>
                 เริ่มอ่านเลย
@@ -70,27 +57,33 @@ export default function Home() {
               {recentBooks.length > 0 && (
                 <Link
                   href={`/read/${recentBooks[0]}`}
-                  className="inline-flex items-center gap-2 rounded-lg border border-[var(--gold)]/30 px-6 py-3 text-sm font-medium text-[var(--gold)] hover:bg-[var(--gold)]/10 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-6 py-3 text-sm font-medium text-white hover:bg-white/10 transition-colors"
                 >
-                  อ่านต่อจากที่ค้างไว้ →
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                  อ่านต่อจากที่ค้างไว้
                 </Link>
               )}
             </div>
           </div>
         </div>
 
-        {/* Bottom ornament */}
-        <div className="relative h-8">
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-[var(--ivory)]" style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 50% 60%, 0 0)' }} />
+        {/* Decorative bottom wave */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+            <path d="M0 48h1440V24c-240 16-480 24-720 24S240 40 0 24v24z" fill="var(--color-cream)" />
+          </svg>
         </div>
       </section>
 
-      {/* Continue Reading */}
+      {/* Continue Reading Section */}
       {recentBooks.length > 0 && (
-        <section id="reading-history" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <section id="reading-history" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="h-8 w-1 rounded-full bg-[var(--gold)]" />
-            <h2 className="text-lg font-semibold text-[var(--ink)]">กำลังอ่านอยู่</h2>
+            <div className="h-8 w-1 rounded-full bg-[var(--color-gold)]" />
+            <h2 className="text-xl font-semibold text-[var(--color-ink)]">กำลังอ่านอยู่</h2>
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {recentBooks.map((bookId) => {
@@ -102,53 +95,68 @@ export default function Home() {
         </section>
       )}
 
-      {/* Library */}
+      {/* Library Section */}
       <section id="library" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3 mb-8">
-          <div className="h-8 w-1 rounded-full bg-[var(--midnight)]" />
+          <div className="h-8 w-1 rounded-full bg-[var(--color-teal)]" />
           <div>
-            <h2 className="text-xl font-semibold text-[var(--ink)]">ห้องสมุด</h2>
-            <p className="text-xs text-[var(--ink-faint)] mt-0.5">หนังสืออิสลามแปลไทยทั้งหมด</p>
+            <h2 className="text-2xl font-semibold text-[var(--color-ink)]">ห้องสมุด</h2>
+            <p className="text-sm text-[var(--color-ink-light)] mt-0.5">หนังสืออิสลามแปลไทยทั้งหมด</p>
           </div>
         </div>
 
         {/* Category filters */}
         <div className="flex flex-wrap gap-2 mb-8">
-          {['ทั้งหมด', 'ตัฟซีร', 'หะดีษ', 'อะกีดะฮ์', 'ฟิกฮ์'].map((cat, i) => (
-            <button
-              key={cat}
-              className={`rounded-lg px-4 py-2 text-xs font-medium transition-colors ${
-                i === 0
-                  ? 'bg-[var(--midnight)] text-white shadow-sm'
-                  : 'bg-white border border-[var(--gold)]/15 text-[var(--ink-faint)] hover:border-[var(--gold)]/30 hover:text-[var(--midnight)]'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          <button className="rounded-lg bg-[var(--color-teal)] px-4 py-2 text-sm font-medium text-white shadow-sm">
+            ทั้งหมด
+          </button>
+          <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
+            ตัฟซีร
+          </button>
+          <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
+            หะดีษ
+          </button>
+          <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
+            อะกีดะฮ์
+          </button>
+          <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
+            ฟิกฮ์
+          </button>
         </div>
 
+        {/* Books Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {allBooks.map((book, index) => (
             <BookCard key={book.id} book={book} index={index} />
           ))}
         </div>
 
-        {/* Coming soon */}
-        <div className="mt-10 rounded-xl border-2 border-dashed border-[var(--gold)]/15 bg-white/50 p-10 text-center">
-          <p className="text-sm font-medium text-[var(--ink-faint)]">กำลังเพิ่มหนังสือเล่มใหม่เร็ว ๆ นี้</p>
-          <p className="text-xs text-[var(--ink-faint)]/50 mt-1">إن شاء الله</p>
+        {/* Coming soon placeholder */}
+        <div className="mt-8 rounded-2xl border-2 border-dashed border-[var(--color-gold)]/20 bg-white/50 p-8 text-center">
+          <div className="mx-auto w-12 h-12 rounded-full bg-[var(--color-gold-pale)] flex items-center justify-center mb-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 5v14" />
+              <path d="M5 12h14" />
+            </svg>
+          </div>
+          <p className="text-sm font-medium text-[var(--color-ink-light)]">
+            กำลังเพิ่มหนังสือเล่มใหม่เร็ว ๆ นี้
+          </p>
+          <p className="text-xs text-[var(--color-ink-light)]/60 mt-1">
+            อินชาอัลลอฮ์
+          </p>
         </div>
       </section>
 
-      {/* About */}
-      <section id="about" className="bg-[var(--parchment)] border-t border-[var(--gold)]/10">
+      {/* About Section */}
+      <section id="about" className="bg-white border-t border-[var(--color-gold)]/10">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-xl font-semibold text-[var(--ink)] mb-4">เกี่ยวกับ ArabicTran</h2>
-            <p className="text-sm text-[var(--ink-light)] leading-relaxed font-light">
+            <h2 className="text-2xl font-semibold text-[var(--color-ink)] mb-4">เกี่ยวกับ ArabicTran</h2>
+            <p className="text-[var(--color-ink-light)] leading-relaxed">
               ArabicTran เป็นโครงการแปลหนังสืออิสลามจากภาษาอาหรับเป็นภาษาไทย
               โดยตรวจสอบสำนวนการแปลกับฉบับภาษาอังกฤษ
+              เพื่อให้ได้คำแปลที่ถูกต้องและสละสลวยที่สุด
               สำหรับอายะฮ์อัลกุรอานและหะดีษ เราใช้คำแปลที่เป็นทางการจากแหล่งอ้างอิงที่น่าเชื่อถือ
             </p>
           </div>
@@ -156,14 +164,14 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[var(--midnight-deep)] text-white/30">
+      <footer className="bg-[var(--color-ink)] text-white/60">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-[var(--gold)]/60">ArabicTran</span>
-              <span className="text-[10px]">ห้องสมุดอิสลาม</span>
+              <span className="text-sm font-medium text-white/80">ArabicTran</span>
+              <span className="text-xs">ห้องสมุดอิสลาม</span>
             </div>
-            <p className="text-[10px]">
+            <p className="text-xs">
               คำแปลอัลกุรอานอ้างอิงจาก quran.com | หะดีษอ้างอิงจาก sunnah.com
             </p>
           </div>

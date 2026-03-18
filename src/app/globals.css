@@ -1,244 +1,138 @@
 @import "tailwindcss";
 
-/* ============================================
-   ArabicTran — Ottoman Manuscript Theme
-   Inspired by Mamluk Qurans & Dar us-Salam layouts
-   ============================================ */
-
 :root {
-  /* Core palette — Ottoman manuscript inspired */
-  --midnight: #1B2A4A;
-  --midnight-light: #243656;
-  --midnight-deep: #111D35;
-  --gold: #D4AF37;
-  --gold-light: #E8CC6E;
-  --gold-pale: #F5ECD0;
-  --gold-dim: #B8952E;
-  --ivory: #FEFCF4;
-  --ivory-warm: #FBF7EC;
-  --parchment: #F5F0E3;
-  --parchment-dark: #EDE5D2;
-  --burgundy: #800020;
-  --burgundy-light: #A0334D;
-  --sage: #4A6741;
-  --sage-light: #6B8C5E;
-  --ink: #2C2417;
-  --ink-light: #5C4F3D;
-  --ink-faint: #8A7D6B;
-  --verse-bg: #F0F4EE;
-  --verse-border: #4A6741;
-  --hadith-bg: #FFF8EC;
-  --hadith-border: #D4AF37;
-
-  /* Semantic */
-  --color-background: var(--ivory);
-  --color-foreground: var(--ink);
-  --color-primary: var(--midnight);
-  --color-accent: var(--gold);
-}
-
-/* Dark mode — lamplight reading */
-[data-theme="dark"] {
-  --ivory: #1A1814;
-  --ivory-warm: #201D17;
-  --parchment: #252118;
-  --parchment-dark: #1E1B14;
-  --ink: #E8E0D0;
-  --ink-light: #B8AD9A;
-  --ink-faint: #7A7060;
-  --midnight: #0D1520;
-  --midnight-light: #1A2535;
-  --verse-bg: #1A2318;
-  --verse-border: #4A6741;
-  --hadith-bg: #251F10;
-  --hadith-border: #B8952E;
-  --gold-pale: #2A2410;
+  --color-cream: #FDF8F0;
+  --color-cream-dark: #F5EDE0;
+  --color-teal: #0D7377;
+  --color-teal-dark: #095456;
+  --color-teal-light: #0E8B8F;
+  --color-gold: #C4A35A;
+  --color-gold-light: #D4B96E;
+  --color-gold-pale: #F0E6C8;
+  --color-ink: #2C2417;
+  --color-ink-light: #5C4F3D;
+  --color-paper: #FEFCF7;
+  --color-verse-bg: #F0F7F7;
+  --color-verse-border: #B8D8D8;
+  --color-hadith-bg: #FFF8EC;
+  --color-hadith-border: #E8D5A8;
+  --color-sidebar-bg: #F8F4EC;
 }
 
 @theme inline {
-  --color-background: var(--ivory);
-  --color-foreground: var(--ink);
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-ink);
   --font-sans: var(--font-noto-thai);
   --font-arabic: var(--font-amiri);
   --font-display: var(--font-cormorant);
 }
 
-/* ===== ISLAMIC GEOMETRIC PATTERNS ===== */
-
-/* Eight-pointed star pattern — subtle background texture */
+/* Islamic geometric pattern - subtle SVG background */
 .pattern-islamic {
-  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='0.4' opacity='0.08'%3E%3Cpath d='M40 0L50 20L40 40L20 30Z'/%3E%3Cpath d='M40 0L60 30L40 40L30 20Z'/%3E%3Cpath d='M80 40L60 50L40 40L50 20Z'/%3E%3Cpath d='M80 40L60 30L40 40L50 60Z'/%3E%3Cpath d='M40 80L30 60L40 40L60 50Z'/%3E%3Cpath d='M40 80L20 50L40 40L50 60Z'/%3E%3Cpath d='M0 40L20 30L40 40L30 60Z'/%3E%3Cpath d='M0 40L20 50L40 40L30 20Z'/%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 80px 80px;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C4A35A' stroke-width='0.5' opacity='0.12'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z'/%3E%3Cpath d='M30 10 L50 30 L30 50 L10 30Z'/%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
 }
 
-/* Arabesque divider */
-.divider-arabesque {
-  position: relative;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 16px 0;
+.pattern-islamic-dense {
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C4A35A' stroke-width='0.4' opacity='0.08'%3E%3Cpath d='M20 0 L40 20 L20 40 L0 20Z'/%3E%3Cpath d='M20 8 L32 20 L20 32 L8 20Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 40px 40px;
 }
-.divider-arabesque::before,
-.divider-arabesque::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
-  opacity: 0.4;
-}
-.divider-arabesque::before { margin-right: 12px; }
-.divider-arabesque::after { margin-left: 12px; }
 
+/* Gold decorative divider */
 .divider-gold {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
-  opacity: 0.3;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold) 20%, var(--color-gold) 80%, transparent);
+  opacity: 0.5;
 }
 
-/* ===== QURAN VERSE — ornamental frame like mushaf publishers ===== */
-.quran-verse {
+/* Decorative border for book covers */
+.book-cover-border {
+  border: 2px solid var(--color-gold);
   position: relative;
-  background: var(--verse-bg);
-  border: 1px solid var(--verse-border);
-  border-radius: 2px;
-  padding: 20px 24px;
-  margin: 20px 0;
-  box-shadow: inset 0 0 0 3px var(--ivory), inset 0 0 0 4px var(--verse-border);
 }
-.quran-verse::before {
-  content: '﴿';
+.book-cover-border::before {
+  content: '';
   position: absolute;
-  top: 8px;
-  right: 10px;
-  font-family: var(--font-arabic), 'Amiri', serif;
-  font-size: 24px;
-  color: var(--verse-border);
-  opacity: 0.5;
-  line-height: 1;
-}
-.quran-verse::after {
-  content: '﴾';
-  position: absolute;
-  bottom: 8px;
-  left: 10px;
-  font-family: var(--font-arabic), 'Amiri', serif;
-  font-size: 24px;
-  color: var(--verse-border);
-  opacity: 0.5;
-  line-height: 1;
+  inset: 3px;
+  border: 1px solid var(--color-gold-light);
+  opacity: 0.6;
+  pointer-events: none;
 }
 
-/* ===== HADITH — warm gold accent ===== */
+/* Quran verse styling */
+.quran-verse {
+  background: var(--color-verse-bg);
+  border-right: 4px solid var(--color-teal);
+  border-radius: 0 8px 8px 0;
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+}
+
+/* Hadith styling */
 .hadith-block {
-  background: var(--hadith-bg);
-  border-right: 3px solid var(--hadith-border);
-  border-radius: 0 4px 4px 0;
-  padding: 16px 20px;
-  margin: 16px 0;
+  background: var(--color-hadith-bg);
+  border-right: 4px solid var(--color-gold);
+  border-radius: 0 8px 8px 0;
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
 }
 
-/* ===== TYPOGRAPHY ===== */
+/* Arabic text styling */
 .arabic-text {
   direction: rtl;
   text-align: right;
   font-family: var(--font-arabic), 'Amiri', serif;
-  line-height: 2.4;
-  letter-spacing: 0.02em;
+  line-height: 2.2;
+  letter-spacing: 0.01em;
 }
 
+/* Thai text styling */
 .thai-text {
   direction: ltr;
   text-align: left;
   font-family: var(--font-sans), 'Noto Sans Thai', sans-serif;
-  line-height: 2.0;
-  font-weight: 300;
+  line-height: 1.9;
 }
 
-/* ===== READING AREA ===== */
+/* Reading content styles */
 .reading-content {
   max-width: 720px;
   margin: 0 auto;
 }
 
-/* Paper texture background for reading */
-.reading-paper {
-  background-color: var(--ivory-warm);
-  background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 50%, rgba(128, 0, 32, 0.02) 0%, transparent 50%);
-  min-height: 100vh;
+/* Scrollbar styling for sidebar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
 }
-
-/* ===== CHAPTER HEADER — ornamental like Dar us-Salam books ===== */
-.chapter-header-ornament {
-  text-align: center;
-  padding: 32px 0 24px;
-  position: relative;
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
-.chapter-header-ornament::before {
-  content: '';
-  display: block;
-  width: 200px;
-  height: 3px;
-  margin: 0 auto 20px;
-  background: linear-gradient(90deg,
-    transparent,
-    var(--gold-dim) 15%,
-    var(--gold) 40%,
-    var(--gold) 60%,
-    var(--gold-dim) 85%,
-    transparent
-  );
-  border-radius: 2px;
-}
-.chapter-header-ornament::after {
-  content: '';
-  display: block;
-  width: 200px;
-  height: 3px;
-  margin: 20px auto 0;
-  background: linear-gradient(90deg,
-    transparent,
-    var(--gold-dim) 15%,
-    var(--gold) 40%,
-    var(--gold) 60%,
-    var(--gold-dim) 85%,
-    transparent
-  );
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-gold-light);
   border-radius: 2px;
 }
 
-/* ===== SIDEBAR — manuscript index ===== */
-.sidebar-scroll::-webkit-scrollbar { width: 4px; }
-.sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
-.sidebar-scroll::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
-
-.toc-active {
-  color: var(--gold);
-  font-weight: 600;
-  border-right-color: var(--gold);
+/* Progress bar */
+.progress-ring {
+  transform: rotate(-90deg);
 }
 
-/* ===== PROGRESS RING ===== */
-.progress-ring { transform: rotate(-90deg); }
-
-/* ===== ANIMATIONS ===== */
+/* Page transitions */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
 }
+
 .animate-stagger-1 { animation-delay: 0.05s; }
 .animate-stagger-2 { animation-delay: 0.1s; }
 .animate-stagger-3 { animation-delay: 0.15s; }
@@ -246,75 +140,62 @@
 .animate-stagger-5 { animation-delay: 0.25s; }
 .animate-stagger-6 { animation-delay: 0.3s; }
 
-/* ===== BOOK CARD ===== */
+/* Book card hover */
 .book-card {
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .book-card:hover {
-  transform: translateY(-8px);
-  box-shadow:
-    0 20px 40px rgba(27, 42, 74, 0.12),
-    0 8px 16px rgba(0, 0, 0, 0.06);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(13, 115, 119, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
-/* ===== TOGGLE ===== */
+/* Toggle button active state */
 .toggle-active {
-  background: var(--midnight);
+  background: var(--color-teal);
   color: white;
-  box-shadow: 0 2px 8px rgba(27, 42, 74, 0.3);
+  box-shadow: 0 2px 8px rgba(13, 115, 119, 0.3);
 }
 
-/* ===== GLOBAL ===== */
-html { scroll-behavior: smooth; }
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  background: var(--ivory);
-  color: var(--ink);
+  background: var(--color-cream);
+  color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== MOBILE SIDEBAR ===== */
+/* Mobile sidebar overlay */
 @media (max-width: 1024px) {
   .sidebar-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 40;
   }
 }
 
-/* ===== SEARCH HIGHLIGHT ===== */
+/* Active TOC item */
+.toc-active {
+  color: var(--color-teal);
+  font-weight: 600;
+  border-right-color: var(--color-teal);
+}
+
+/* Search highlight */
 mark {
-  background: var(--gold-pale);
-  color: var(--ink);
-  padding: 0 3px;
+  background: var(--color-gold-pale);
+  color: var(--color-ink);
+  padding: 0 2px;
   border-radius: 2px;
 }
 
-/* ===== PRINT ===== */
+/* Print-friendly */
 @media print {
   .no-print { display: none !important; }
   body { background: white; }
-  .quran-verse { border: 1px solid #999; }
-}
-
-/* ===== BISMILLAH decorative ===== */
-.bismillah-ornate {
-  font-family: var(--font-arabic), 'Amiri', serif;
-  font-size: 20px;
-  color: var(--gold);
-  text-align: center;
-  direction: rtl;
-  letter-spacing: 0.05em;
-  padding: 8px 0;
-  position: relative;
-}
-.bismillah-ornate::before,
-.bismillah-ornate::after {
-  content: '❊';
-  font-size: 10px;
-  vertical-align: middle;
-  margin: 0 12px;
-  opacity: 0.6;
+  .quran-verse { border: 1px solid #ccc; }
 }
