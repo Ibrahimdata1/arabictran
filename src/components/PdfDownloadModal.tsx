@@ -116,18 +116,7 @@ export default function PdfDownloadModal({ book, isOpen, onClose }: PdfDownloadM
                 />
               </div>
 
-              {/* Cancel button */}
-              <button
-                onClick={handleCancel}
-                className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl border-2 border-red-300 px-4 py-2.5 text-sm font-medium text-red-500 hover:bg-red-50 hover:border-red-400 transition-colors"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <path d="M18 6 6 18" /><path d="m6 6 12 12" />
-                </svg>
-                ยกเลิก
-              </button>
-
-              <p className="text-[10px] text-[var(--color-ink-light)] mt-3 text-center">กด Esc หรือปุ่มยกเลิกเพื่อหยุด</p>
+              <p className="text-[10px] text-[var(--color-ink-light)] mt-3 text-center">กด Esc เพื่อยกเลิก</p>
             </div>
           )}
 
