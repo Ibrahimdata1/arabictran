@@ -128,10 +128,10 @@ export default function ReaderPage() {
 
   if (!book) {
     return (
-      <div className="min-h-screen bg-[var(--color-cream)] flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--ivory)] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-lg text-[var(--color-ink-light)]">ไม่พบหนังสือ</p>
-          <Link href="/" className="mt-4 inline-block text-[var(--color-teal)] hover:underline">
+          <p className="text-lg text-[var(--ink-light)]">ไม่พบหนังสือ</p>
+          <Link href="/" className="mt-4 inline-block text-[var(--midnight)] hover:underline">
             กลับหน้าหลัก
           </Link>
         </div>
@@ -148,18 +148,18 @@ export default function ReaderPage() {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-[var(--color-cream)]">
+    <div className="min-h-screen bg-[var(--ivory)]">
       <Navbar />
 
       {/* Reader toolbar */}
-      <div className="sticky top-16 z-30 border-b border-[var(--color-gold)]/15 bg-[var(--color-paper)]/95 backdrop-blur-md no-print">
+      <div className="sticky top-16 z-30 border-b border-[var(--gold)]/15 bg-[var(--ivory-warm)]/95 backdrop-blur-md no-print">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-14 items-center justify-between gap-4">
             {/* Left: back + quick prev/next */}
             <div className="flex items-center gap-1 min-w-0">
               <Link
                 href="/"
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] transition-colors"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--ink-light)] hover:bg-[var(--parchment-dark)] transition-colors"
                 title="กลับหน้าหลัก"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -172,18 +172,18 @@ export default function ReaderPage() {
                 <button
                   onClick={() => hasPrev && goToChapter(prevChapter!.id)}
                   disabled={!hasPrev}
-                  className="flex h-7 w-7 items-center justify-center rounded text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)] transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
+                  className="flex h-7 w-7 items-center justify-center rounded text-[var(--ink-light)] hover:bg-[var(--parchment-dark)] hover:text-[var(--midnight)] transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
                   title={prevChapter ? `บทก่อนหน้า: ${prevChapter.titleTh}` : ''}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="m15 18-6-6 6-6" /></svg>
                 </button>
-                <span className="text-[11px] text-[var(--color-ink-light)] tabular-nums px-1">
+                <span className="text-[11px] text-[var(--ink-light)] tabular-nums px-1">
                   {currentChapterIndex + 1}/{book.chapters.length}
                 </span>
                 <button
                   onClick={() => hasNext && goToChapter(nextChapter!.id)}
                   disabled={!hasNext}
-                  className="flex h-7 w-7 items-center justify-center rounded text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)] transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
+                  className="flex h-7 w-7 items-center justify-center rounded text-[var(--ink-light)] hover:bg-[var(--parchment-dark)] hover:text-[var(--midnight)] transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
                   title={nextChapter ? `บทถัดไป: ${nextChapter.titleTh}` : ''}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="m9 18 6-6-6-6" /></svg>
@@ -191,10 +191,10 @@ export default function ReaderPage() {
               </div>
 
               <div className="min-w-0 ml-2">
-                <h1 className="truncate text-sm font-semibold text-[var(--color-ink)]">
+                <h1 className="truncate text-sm font-semibold text-[var(--ink)]">
                   {currentChapter?.titleTh}
                 </h1>
-                <p className="truncate text-[11px] text-[var(--color-ink-light)]" dir="rtl" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
+                <p className="truncate text-[11px] text-[var(--ink-light)]" dir="rtl" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
                   {currentChapter?.titleAr}
                 </p>
               </div>
@@ -216,7 +216,7 @@ export default function ReaderPage() {
               {book.hasPdf && (
                 <button
                   onClick={() => setPdfModalOpen(true)}
-                  className="hidden sm:flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-medium text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)] transition-colors"
+                  className="hidden sm:flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-medium text-[var(--ink-light)] hover:bg-[var(--parchment-dark)] hover:text-[var(--midnight)] transition-colors"
                   title="ดาวน์โหลด PDF"
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -231,7 +231,7 @@ export default function ReaderPage() {
               {/* TOC toggle for mobile */}
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden flex h-8 w-8 items-center justify-center rounded-lg text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] transition-colors"
+                className="lg:hidden flex h-8 w-8 items-center justify-center rounded-lg text-[var(--ink-light)] hover:bg-[var(--parchment-dark)] transition-colors"
                 title="สารบัญ"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -250,17 +250,21 @@ export default function ReaderPage() {
         {/* Content */}
         <main className="flex-1 min-w-0">
           <div ref={contentRef} className="reading-content px-4 py-8 sm:px-6 lg:px-8">
-            {/* Chapter header */}
-            <div className="text-center mb-10">
+            {/* Bismillah */}
+            <div className="bismillah-ornate mb-6">
+              بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+            </div>
+
+            {/* Chapter header — ornamental */}
+            <div className="chapter-header-ornament mb-10">
               <p
-                className="text-3xl font-bold text-[var(--color-ink)] mb-2"
+                className="text-3xl font-bold text-[var(--midnight)] mb-3"
                 style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}
                 dir="rtl"
               >
                 {currentChapter?.titleAr}
               </p>
-              <div className="divider-gold my-4 max-w-32 mx-auto" />
-              <h2 className="text-xl font-semibold text-[var(--color-ink)]">
+              <h2 className="text-lg font-semibold text-[var(--ink)]">
                 {currentChapter?.titleTh}
               </h2>
             </div>
@@ -271,7 +275,7 @@ export default function ReaderPage() {
             ))}
 
             {/* Chapter navigation - large buttons like Shamela */}
-            <div className="mt-12 pt-8 border-t border-[var(--color-gold)]/15">
+            <div className="mt-12 pt-8 border-t border-[var(--gold)]/15">
               <div className="grid grid-cols-2 gap-3">
                 {/* Previous */}
                 <button
@@ -279,16 +283,16 @@ export default function ReaderPage() {
                   disabled={!hasPrev}
                   className={`flex flex-col items-start gap-1 rounded-xl px-4 py-3 text-left transition-all ${
                     hasPrev
-                      ? 'bg-white border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:shadow-sm cursor-pointer'
+                      ? 'bg-white border border-[var(--gold)]/15 hover:border-[var(--midnight)]/30 hover:shadow-sm cursor-pointer'
                       : 'opacity-30 cursor-not-allowed bg-transparent'
                   }`}
                 >
-                  <span className="flex items-center gap-1 text-xs text-[var(--color-ink-light)]">
+                  <span className="flex items-center gap-1 text-xs text-[var(--ink-light)]">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="m15 18-6-6 6-6" /></svg>
                     บทก่อนหน้า
                   </span>
                   {prevChapter && (
-                    <span className="text-sm font-medium text-[var(--color-teal)] line-clamp-1">
+                    <span className="text-sm font-medium text-[var(--midnight)] line-clamp-1">
                       {prevChapter.titleTh}
                     </span>
                   )}
@@ -300,7 +304,7 @@ export default function ReaderPage() {
                   disabled={!hasNext}
                   className={`flex flex-col items-end gap-1 rounded-xl px-4 py-3 text-right transition-all ${
                     hasNext
-                      ? 'bg-[var(--color-teal)] text-white hover:bg-[var(--color-teal-dark)] shadow-sm cursor-pointer'
+                      ? 'bg-[var(--midnight)] text-white hover:bg-[var(--color-teal-dark)] shadow-sm cursor-pointer'
                       : 'opacity-30 cursor-not-allowed bg-transparent'
                   }`}
                 >
@@ -316,7 +320,7 @@ export default function ReaderPage() {
                 </button>
               </div>
 
-              <p className="text-center text-xs text-[var(--color-ink-light)]/50 mt-4">
+              <p className="text-center text-xs text-[var(--ink-light)]/50 mt-4">
                 {currentChapterIndex + 1} / {book.chapters.length} บท • ใช้ปุ่มลูกศร ← → เพื่อเปลี่ยนบท
               </p>
             </div>

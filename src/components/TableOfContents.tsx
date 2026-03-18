@@ -45,18 +45,18 @@ export default function TableOfContents({
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-16 right-0 z-50 h-[calc(100vh-4rem)] w-80 transform border-l border-[var(--color-gold)]/15 bg-[var(--color-sidebar-bg)] transition-transform duration-300 lg:static lg:z-auto lg:translate-x-0 ${
+        className={`fixed top-16 right-0 z-50 h-[calc(100vh-4rem)] w-80 transform border-l border-[var(--gold)]/15 bg-[var(--parchment)] transition-transform duration-300 lg:static lg:z-auto lg:translate-x-0 ${
           isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[var(--color-gold)]/15 px-4 py-3">
-          <h2 className="text-sm font-semibold text-[var(--color-ink)]">
+        <div className="flex items-center justify-between border-b border-[var(--gold)]/15 px-4 py-3">
+          <h2 className="text-sm font-semibold text-[var(--ink)]">
             สารบัญ
           </h2>
           <button
             onClick={onClose}
-            className="lg:hidden flex h-7 w-7 items-center justify-center rounded text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)]"
+            className="lg:hidden flex h-7 w-7 items-center justify-center rounded text-[var(--ink-light)] hover:bg-[var(--parchment-dark)]"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M18 6 6 18" />
@@ -81,8 +81,8 @@ export default function TableOfContents({
                   }}
                   className={`flex w-full items-start gap-2 rounded-lg px-3 py-2.5 text-right transition-colors ${
                     isActive
-                      ? 'bg-[var(--color-teal)]/8 text-[var(--color-teal)]'
-                      : 'text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-ink)]'
+                      ? 'bg-[var(--gold)]/8 text-[var(--gold)]'
+                      : 'text-[var(--ink-light)] hover:bg-[var(--parchment-dark)] hover:text-[var(--ink)]'
                   }`}
                 >
                   {/* Expand icon */}
@@ -119,7 +119,7 @@ export default function TableOfContents({
 
                 {/* Sections */}
                 {isExpanded && chapter.sections.length > 0 && (
-                  <div className="ml-6 mr-1 border-r-2 border-[var(--color-gold)]/15 py-1">
+                  <div className="ml-6 mr-1 border-r-2 border-[var(--gold)]/15 py-1">
                     {chapter.sections.map((section) => {
                       const isSectionActive = section.id === activeSectionId;
                       return (
@@ -128,8 +128,8 @@ export default function TableOfContents({
                           onClick={() => onSelectSection(chapter.id, section.id)}
                           className={`block w-full pr-3 pl-2 py-1.5 text-right text-xs transition-colors rounded-l ${
                             isSectionActive
-                              ? 'toc-active border-r-2 -mr-px bg-[var(--color-teal)]/5'
-                              : 'text-[var(--color-ink-light)]/70 hover:text-[var(--color-ink-light)] border-r-2 border-transparent -mr-px'
+                              ? 'toc-active border-r-2 -mr-px bg-[var(--gold)]/5'
+                              : 'text-[var(--ink-light)]/70 hover:text-[var(--ink-light)] border-r-2 border-transparent -mr-px'
                           }`}
                         >
                           {section.titleTh || section.titleAr || `ส่วนที่ ${chapter.sections.indexOf(section) + 1}`}
