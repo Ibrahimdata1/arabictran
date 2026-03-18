@@ -37,7 +37,7 @@ export async function generateAndDownloadPdf(
   onProgress?: (pct: number) => void,
 ): Promise<void> {
   const { default: jsPDF } = await import('jspdf');
-  const { toPng } = await import('html-to-image');
+  const { default: html2canvas } = await import('html2canvas');
 
   const pdf = new jsPDF('p', 'mm', 'a4');
   const pageW = pdf.internal.pageSize.getWidth();
@@ -61,12 +61,15 @@ export async function generateAndDownloadPdf(
     await document.fonts.ready;
     await new Promise(r => setTimeout(r, 150));
 
-    const imgData = await toPng(container, { quality: 1, pixelRatio: 2 });
-    const hPx = container.offsetHeight;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const canvas = await html2canvas(container, { backgroundColor: '#ffffff', logging: false, windowWidth: renderWidthPx } as any);
+    const imgData = canvas.toDataURL('image/png');
+    const hPx = canvas.height;
+    const wPx = canvas.width;
     document.body.removeChild(container);
 
     const wMm = contentW;
-    const hMm = (hPx / renderWidthPx) * contentW;
+    const hMm = (hPx / wPx) * contentW;
     return { imgData, wMm, hMm };
   }
 
