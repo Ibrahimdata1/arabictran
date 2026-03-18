@@ -1,4 +1,6 @@
 import { Book, Chapter } from '@/lib/types';
+import { juzAmmaPart1 } from './juz-amma-part1';
+import { juzAmmaPart2 } from './juz-amma-part2';
 
 export const tafsirSadi: Book = {
   id: 'tafsir-sadi',
@@ -636,8 +638,10 @@ const chapterAnNaba: Chapter = {
   ],
 };
 
-// Add chapters to the book (in order)
-tafsirSadi.chapters.splice(1, 0, chapterAnNaba, chapterAlAsr, chapterAlKawthar, chapterAnNasr, chapterAlMasad);
+// Add all chapters to the book
+tafsirSadi.chapters.push(chapterAnNaba, chapterAlAsr, chapterAlKawthar, chapterAnNasr, chapterAlMasad);
+tafsirSadi.chapters.push(...juzAmmaPart1);
+tafsirSadi.chapters.push(...juzAmmaPart2);
 // Sort chapters by number
 tafsirSadi.chapters.sort((a, b) => a.number - b.number);
 
