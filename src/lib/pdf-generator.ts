@@ -50,7 +50,7 @@ export async function generateAndDownloadPdf(
   const marginBot = 20;
   const contentW = pageW - marginX * 2;
   const usableH = pageH - marginTop - marginBot;
-  const renderWidthPx = 580;
+  const renderWidthPx = 650;
 
   // Colors
   const cPrimary = '#C75B12';
@@ -102,7 +102,7 @@ export async function generateAndDownloadPdf(
   const coverHtml = `
     <div style="text-align:center;padding:20px;background:${cCoverBg};">
       <!-- Bismillah top -->
-      <p style="font-family:'Amiri',serif;direction:rtl;font-size:16px;color:${cAccent};margin:0 0 24px;letter-spacing:0.05em;">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+      <p style="font-family:'Amiri',serif;direction:rtl;font-size:14px;color:${cAccent};margin:0 0 24px;letter-spacing:0.1em;word-spacing:0.2em;">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
 
       <!-- Outer decorative frame -->
       <div style="border:3px double ${cAccent};padding:8px;display:inline-block;width:90%;">
@@ -117,7 +117,7 @@ export async function generateAndDownloadPdf(
           </div>
 
           <!-- Title Arabic -->
-          <p style="font-family:'Amiri',serif;direction:rtl;font-size:26px;font-weight:bold;color:${cPrimary};margin:0 0 12px;line-height:1.6;">${escHtml(book.titleAr)}</p>
+          <p style="font-family:'Amiri',serif;direction:rtl;font-size:22px;font-weight:bold;color:${cPrimary};margin:0 0 12px;line-height:1.8;word-spacing:0.15em;">${escHtml(book.titleAr)}</p>
 
           <!-- Divider -->
           <div style="width:80px;height:2px;background:linear-gradient(90deg,transparent,${cAccent},transparent);margin:12px auto;"></div>
