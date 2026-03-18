@@ -57,7 +57,7 @@ export default function BookCard({ book, index }: BookCardProps) {
   return (
     <Link href={`/read/${book.id}`} className="block">
       <div
-        className={`book-card group relative overflow-hidden rounded-xl bg-white shadow-sm border border-[var(--color-gold)]/10 opacity-0 animate-fade-in-up animate-stagger-${Math.min(index + 1, 6)}`}
+        className={`book-card group relative overflow-hidden rounded-xl bg-[var(--color-paper)] shadow-sm border border-[var(--color-gold)]/10 opacity-0 animate-fade-in-up animate-stagger-${Math.min(index + 1, 6)}`}
       >
         {/* Book cover area */}
         <div

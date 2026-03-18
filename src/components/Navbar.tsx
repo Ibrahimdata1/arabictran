@@ -3,13 +3,14 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import UserMenu from './UserMenu';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-[var(--color-gold)]/20 bg-[var(--color-paper)]/95 backdrop-blur-md no-print">
+    <nav className="sticky top-0 z-50 border-b border-[var(--color-gold)]/20 bg-[var(--color-paper)] backdrop-blur-md no-print">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -54,7 +55,7 @@ export default function Navbar() {
           </div>
 
           {/* Right side actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 sm:gap-2">
             {/* Search */}
             <div className="relative">
               {searchOpen ? (
@@ -62,7 +63,7 @@ export default function Navbar() {
                   <input
                     type="text"
                     placeholder="ค้นหาหนังสือ..."
-                    className="w-48 sm:w-64 rounded-lg border border-[var(--color-gold)]/30 bg-white px-3 py-1.5 text-sm outline-none focus:border-[var(--color-teal)] focus:ring-1 focus:ring-[var(--color-teal)]/30 transition-all"
+                    className="w-36 sm:w-64 rounded-lg border border-[var(--color-gold)]/30 bg-[var(--color-paper)] px-3 py-1.5 text-sm text-[var(--color-ink)] outline-none focus:border-[var(--color-teal)] focus:ring-1 focus:ring-[var(--color-teal)]/30 transition-all"
                     autoFocus
                     onBlur={() => setSearchOpen(false)}
                   />
@@ -70,7 +71,7 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={() => setSearchOpen(true)}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)] transition-colors"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)] transition-colors"
                   aria-label="ค้นหา"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -81,10 +82,13 @@ export default function Navbar() {
               )}
             </div>
 
+            {/* Theme toggle */}
+            <ThemeToggle />
+
             {/* Reading History indicator */}
             <Link
               href="/#reading-history"
-              className="hidden sm:flex h-9 items-center gap-1.5 rounded-lg px-3 text-sm font-medium text-[var(--color-teal)] hover:bg-[var(--color-teal)]/5 transition-colors"
+              className="hidden md:flex h-8 items-center gap-1.5 rounded-lg px-2 text-sm font-medium text-[var(--color-teal)] hover:bg-[var(--color-teal)]/5 transition-colors"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 6v6l4 2" />
@@ -99,7 +103,7 @@ export default function Navbar() {
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden flex h-9 w-9 items-center justify-center rounded-lg text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] transition-colors"
+              className="md:hidden flex h-8 w-8 items-center justify-center rounded-lg text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] transition-colors"
               aria-label="เมนู"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

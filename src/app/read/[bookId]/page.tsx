@@ -160,11 +160,11 @@ export default function ReaderPage() {
       <Navbar />
 
       {/* Reader toolbar */}
-      <div className="sticky top-16 z-30 border-b border-[var(--color-gold)]/15 bg-[var(--color-paper)]/95 backdrop-blur-md no-print">
+      <div className="sticky top-16 z-30 border-b border-[var(--color-gold)]/15 bg-[var(--color-paper)] backdrop-blur-md no-print">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-14 items-center justify-between gap-4">
+          <div className="flex h-14 items-center justify-between gap-2 sm:gap-4">
             {/* Left: back + quick prev/next */}
-            <div className="flex items-center gap-1 min-w-0">
+            <div className="flex items-center gap-1 min-w-0 shrink">
               <Link
                 href="/"
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] transition-colors"
@@ -198,7 +198,7 @@ export default function ReaderPage() {
                 </button>
               </div>
 
-              <div className="min-w-0 ml-2">
+              <div className="min-w-0 ml-1 sm:ml-2 hidden sm:block">
                 <h1 className="truncate text-sm font-semibold text-[var(--color-ink)]">
                   {currentChapter?.titleTh}
                 </h1>
@@ -208,13 +208,13 @@ export default function ReaderPage() {
               </div>
             </div>
 
-            {/* Center: language toggle */}
-            <div className="hidden md:block">
+            {/* Center: language toggle (desktop) */}
+            <div className="hidden md:block shrink-0">
               <LanguageToggle mode={mode} onChange={setMode} />
             </div>
 
             {/* Right: actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
               {/* Mobile language toggle */}
               <div className="md:hidden">
                 <LanguageToggle mode={mode} onChange={setMode} />
@@ -224,7 +224,7 @@ export default function ReaderPage() {
               {book.hasPdf && (
                 <button
                   onClick={() => setPdfModalOpen(true)}
-                  className="hidden sm:flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-medium text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)] transition-colors"
+                  className="flex h-8 w-8 sm:w-auto items-center justify-center sm:gap-1.5 rounded-lg sm:px-3 text-xs font-medium text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)] transition-colors"
                   title="ดาวน์โหลด PDF"
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -232,7 +232,7 @@ export default function ReaderPage() {
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
-                  PDF
+                  <span className="hidden sm:inline">PDF</span>
                 </button>
               )}
 
@@ -287,7 +287,7 @@ export default function ReaderPage() {
                   disabled={!hasPrev}
                   className={`flex flex-col items-start gap-1 rounded-xl px-4 py-3 text-left transition-all ${
                     hasPrev
-                      ? 'bg-white border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:shadow-sm cursor-pointer'
+                      ? 'bg-[var(--color-paper)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:shadow-sm cursor-pointer'
                       : 'opacity-30 cursor-not-allowed bg-transparent'
                   }`}
                 >

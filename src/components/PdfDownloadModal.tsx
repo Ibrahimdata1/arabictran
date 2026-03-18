@@ -52,8 +52,8 @@ export default function PdfDownloadModal({ book, isOpen, onClose }: PdfDownloadM
   return (
     <>
       <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm" onClick={handleCancel} />
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
-        <div className="pointer-events-auto w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-[var(--color-gold)]/15 overflow-hidden" onClick={(e) => e.stopPropagation()}>
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 pointer-events-none overflow-y-auto">
+        <div className="pointer-events-auto w-full max-w-lg rounded-2xl bg-[var(--color-paper)] shadow-2xl border border-[var(--color-gold)]/15 overflow-hidden my-auto max-h-[calc(100vh-1rem)] sm:max-h-[calc(100vh-2rem)] flex flex-col" onClick={(e) => e.stopPropagation()}>
           {/* Header */}
           <div className="bg-[var(--color-teal)] px-6 py-4 text-white">
             <div className="flex items-center justify-between">
@@ -83,7 +83,7 @@ export default function PdfDownloadModal({ book, isOpen, onClose }: PdfDownloadM
 
           {/* Content */}
           {!generating && (
-            <div className="px-6 py-5 space-y-4">
+            <div className="px-4 sm:px-6 py-4 sm:py-5 space-y-4 overflow-y-auto">
               <div>
                 <label className="text-xs font-medium text-[var(--color-ink)] mb-2 block">เลือกภาษาใน PDF</label>
                 <div className="flex gap-2">
@@ -112,7 +112,7 @@ export default function PdfDownloadModal({ book, isOpen, onClose }: PdfDownloadM
                 {volumes.length > 1 && (
                   <div className="max-h-48 overflow-y-auto space-y-1.5 sidebar-scroll">
                     {volumes.map((vol, idx) => (
-                      <button key={idx} onClick={() => handleDownload(idx)} className="w-full flex items-center justify-between rounded-lg border border-[var(--color-gold)]/15 bg-white px-3 py-2.5 text-left hover:border-[var(--color-teal)]/30 hover:bg-[var(--color-teal)]/3 transition-colors group">
+                      <button key={idx} onClick={() => handleDownload(idx)} className="w-full flex items-center justify-between rounded-lg border border-[var(--color-gold)]/15 bg-[var(--color-paper)] px-3 py-2.5 text-left hover:border-[var(--color-teal)]/30 hover:bg-[var(--color-teal)]/3 transition-colors group">
                         <div className="flex items-center gap-3">
                           <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[var(--color-cream-dark)] text-xs font-bold text-[var(--color-ink-light)] group-hover:bg-[var(--color-teal)]/10 group-hover:text-[var(--color-teal)]">{vol.number}</div>
                           <div>

@@ -17,14 +17,14 @@ export default function UserMenu() {
     return (
       <button
         onClick={() => signIn('google')}
-        className="flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-medium text-[var(--color-teal)] hover:bg-[var(--color-teal)]/5 transition-colors border border-[var(--color-teal)]/20"
+        className="flex h-8 items-center gap-1 sm:gap-1.5 rounded-lg px-2 sm:px-3 text-xs font-medium text-[var(--color-teal)] hover:bg-[var(--color-teal)]/5 transition-colors border border-[var(--color-teal)]/20 shrink-0"
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
           <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
           <polyline points="10 17 15 12 10 7" />
           <line x1="15" y1="12" x2="3" y2="12" />
         </svg>
-        เข้าสู่ระบบ
+        <span className="hidden sm:inline">เข้าสู่ระบบ</span>
       </button>
     );
   }
@@ -54,14 +54,14 @@ export default function UserMenu() {
       {menuOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setMenuOpen(false)} />
-          <div className="absolute right-0 top-full mt-1 z-50 w-56 rounded-xl bg-white shadow-lg border border-[var(--color-gold)]/15 py-2">
-            <div className="px-4 py-2 border-b border-[var(--color-gold)]/10">
+          <div className="absolute right-0 top-full mt-1 z-50 w-48 sm:w-56 rounded-xl bg-[var(--color-paper)] shadow-lg border border-[var(--color-gold)]/15 py-2">
+            <div className="px-3 sm:px-4 py-2 border-b border-[var(--color-gold)]/10">
               <p className="text-sm font-medium text-[var(--color-ink)] truncate">{session.user?.name}</p>
               <p className="text-[10px] text-[var(--color-ink-light)] truncate">{session.user?.email}</p>
             </div>
             <button
               onClick={() => { signOut(); setMenuOpen(false); }}
-              className="w-full flex items-center gap-2 px-4 py-2 text-xs text-red-500 hover:bg-red-50 transition-colors"
+              className="w-full flex items-center gap-2 px-3 sm:px-4 py-2 text-xs text-red-400 hover:bg-red-500/10 transition-colors"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />

@@ -110,16 +110,16 @@ export default function Home() {
           <button className="rounded-lg bg-[var(--color-teal)] px-4 py-2 text-sm font-medium text-white shadow-sm">
             ทั้งหมด
           </button>
-          <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
+          <button className="rounded-lg bg-[var(--color-paper)] px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
             ตัฟซีร
           </button>
-          <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
+          <button className="rounded-lg bg-[var(--color-paper)] px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
             หะดีษ
           </button>
-          <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
+          <button className="rounded-lg bg-[var(--color-paper)] px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
             อะกีดะฮ์
           </button>
-          <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
+          <button className="rounded-lg bg-[var(--color-paper)] px-4 py-2 text-sm font-medium text-[var(--color-ink-light)] border border-[var(--color-gold)]/15 hover:border-[var(--color-teal)]/30 hover:text-[var(--color-teal)] transition-colors">
             ฟิกฮ์
           </button>
         </div>
@@ -132,7 +132,7 @@ export default function Home() {
         </div>
 
         {/* Coming soon placeholder */}
-        <div className="mt-8 rounded-2xl border-2 border-dashed border-[var(--color-gold)]/20 bg-white/50 p-8 text-center">
+        <div className="mt-8 rounded-2xl border-2 border-dashed border-[var(--color-gold)]/20 bg-[var(--color-paper)]/50 p-8 text-center">
           <div className="mx-auto w-12 h-12 rounded-full bg-[var(--color-gold-pale)] flex items-center justify-center mb-3">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 5v14" />
@@ -149,7 +149,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="bg-white border-t border-[var(--color-gold)]/10">
+      <section id="about" className="bg-[var(--color-paper)] border-t border-[var(--color-gold)]/10">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl font-semibold text-[var(--color-ink)] mb-4">เกี่ยวกับ ArabicTran</h2>

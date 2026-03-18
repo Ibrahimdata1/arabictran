@@ -19,6 +19,25 @@
   --color-sidebar-bg: #F8F4EC;
 }
 
+[data-theme="dark"] {
+  --color-cream: #1A1814;
+  --color-cream-dark: #252219;
+  --color-teal: #1A9DA1;
+  --color-teal-dark: #0D7377;
+  --color-teal-light: #22B8BD;
+  --color-gold: #D4B46A;
+  --color-gold-light: #C4A35A;
+  --color-gold-pale: #3A3225;
+  --color-ink: #E8E0D0;
+  --color-ink-light: #B8AD9A;
+  --color-paper: #201D17;
+  --color-verse-bg: #1A2A2A;
+  --color-verse-border: #2A4A4A;
+  --color-hadith-bg: #2A2518;
+  --color-hadith-border: #4A3D25;
+  --color-sidebar-bg: #1E1B15;
+}
+
 @theme inline {
   --color-background: var(--color-cream);
   --color-foreground: var(--color-ink);
@@ -166,6 +185,17 @@ body {
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark mode overrides for hardcoded colors */
+[data-theme="dark"] .book-card:hover {
+  box-shadow: 0 12px 32px rgba(26, 157, 161, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .toggle-active {
+  background: var(--color-teal);
+  color: white;
+  box-shadow: 0 2px 8px rgba(26, 157, 161, 0.4);
 }
 
 /* Mobile sidebar overlay */

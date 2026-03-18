@@ -40,12 +40,15 @@ export default function TableOfContents({
     <>
       {/* Mobile overlay */}
       {isOpen && (
-        <div className="lg:hidden sidebar-overlay" onClick={onClose} />
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[45]"
+          onClick={onClose}
+        />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-16 right-0 z-50 h-[calc(100vh-4rem)] w-80 transform border-l border-[var(--color-gold)]/15 bg-[var(--color-sidebar-bg)] transition-transform duration-300 lg:static lg:z-auto lg:translate-x-0 ${
+        className={`fixed top-16 right-0 z-[46] h-[calc(100vh-4rem)] w-[min(80vw,20rem)] transform border-l border-[var(--color-gold)]/15 bg-[var(--color-sidebar-bg)] transition-transform duration-300 lg:static lg:z-auto lg:w-80 lg:translate-x-0 ${
           isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
         }`}
       >
