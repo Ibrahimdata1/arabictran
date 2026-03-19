@@ -47,6 +47,12 @@ export default function Navbar() {
               ห้องสมุด
             </Link>
             <Link
+              href="/transcribe"
+              className="text-sm font-medium text-[var(--color-ink-light)] hover:text-[var(--color-teal)] transition-colors"
+            >
+              แปลคลิป
+            </Link>
+            <Link
               href="/#about"
               className="text-sm font-medium text-[var(--color-ink-light)] hover:text-[var(--color-teal)] transition-colors"
             >
@@ -131,6 +137,9 @@ export default function Navbar() {
             </Link>
             <Link href="/#library" className="block px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)]" onClick={() => setMobileMenuOpen(false)}>
               ห้องสมุด
+            </Link>
+            <Link href="/transcribe" className="block px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)]" onClick={() => setMobileMenuOpen(false)}>
+              แปลคลิป
             </Link>
             <Link href="/#reading-history" className="block px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)]" onClick={() => setMobileMenuOpen(false)}>
               ประวัติการอ่าน
