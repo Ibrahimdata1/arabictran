@@ -326,13 +326,13 @@ export default function BookSummaryPage() {
 
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
         {/* Book header */}
-        <div className="bg-[var(--color-paper)] rounded-xl border border-[var(--color-gold)]/15 p-5 sm:p-6 mb-6">
-          <p className="text-xl font-bold text-[var(--color-ink)] mb-1">{book.titleTh}</p>
-          <p className="text-base text-[var(--color-ink-light)] mb-1" dir="rtl" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
+        <div className="bg-[var(--color-paper)] rounded-xl border border-[var(--color-gold)]/15 p-5 sm:p-8 mb-6">
+          <p className="text-2xl font-bold text-[var(--color-ink)] mb-2">{book.titleTh}</p>
+          <p className="text-xl text-[var(--color-ink-light)] mb-2" dir="rtl" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
             {book.titleAr}
           </p>
-          <p className="text-xs text-[var(--color-ink-light)] mb-1">{book.authorTh} | ตะห์กีก: {book.editorTh}</p>
-          <p className="text-xs text-[var(--color-ink-light)] leading-relaxed mt-2">{book.description}</p>
+          <p className="text-base text-[var(--color-ink-light)] mb-2">{book.authorTh} | ตะห์กีก: {book.editorTh}</p>
+          <p className="text-base text-[var(--color-ink-light)] leading-relaxed mt-3">{book.description}</p>
 
           {/* Progress */}
           <div className="mt-4">
@@ -341,10 +341,10 @@ export default function BookSummaryPage() {
         </div>
 
         {/* View toggle */}
-        <div className="flex gap-1 mb-4 bg-[var(--color-paper)] rounded-lg p-1 border border-[var(--color-gold)]/15">
+        <div className="flex gap-1 mb-5 bg-[var(--color-paper)] rounded-lg p-1.5 border border-[var(--color-gold)]/15">
           <button
             onClick={() => setActiveView('list')}
-            className={`flex-1 rounded-md px-3 py-2 text-xs font-medium transition-colors ${
+            className={`flex-1 rounded-md px-4 py-3 text-base font-medium transition-colors ${
               activeView === 'list' ? 'bg-[var(--color-teal)] text-white' : 'text-[var(--color-ink-light)]'
             }`}
           >
@@ -352,7 +352,7 @@ export default function BookSummaryPage() {
           </button>
           <button
             onClick={() => setActiveView('mindmap')}
-            className={`flex-1 rounded-md px-3 py-2 text-xs font-medium transition-colors ${
+            className={`flex-1 rounded-md px-4 py-3 text-base font-medium transition-colors ${
               activeView === 'mindmap' ? 'bg-[var(--color-teal)] text-white' : 'text-[var(--color-ink-light)]'
             }`}
           >
