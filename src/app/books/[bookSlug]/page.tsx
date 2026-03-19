@@ -18,31 +18,31 @@ function ProgressBar({ read, total }: { read: number; total: number }) {
   );
 }
 
-function ReferenceLink({ ref }: { ref: { type: string; textAr: string; textTh: string; source: string; url?: string } }) {
+function ReferenceLink({ reference }: { reference: { type: string; textAr: string; textTh: string; source: string; url?: string } }) {
   return (
     <div className={`rounded-lg p-3 text-sm ${
-      ref.type === 'quran' ? 'bg-[var(--color-verse-bg)] border border-[var(--color-verse-border)]/30' :
-      ref.type === 'hadith' ? 'bg-[var(--color-hadith-bg)] border border-[var(--color-hadith-border)]/30' :
+      reference.type === 'quran' ? 'bg-[var(--color-verse-bg)] border border-[var(--color-verse-border)]/30' :
+      reference.type === 'hadith' ? 'bg-[var(--color-hadith-bg)] border border-[var(--color-hadith-border)]/30' :
       'bg-[var(--color-cream)] border border-[var(--color-gold)]/15'
     }`}>
       <div className="flex items-center gap-2 mb-1">
         <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${
-          ref.type === 'quran' ? 'bg-[var(--color-teal)]/10 text-[var(--color-teal)]' :
-          ref.type === 'hadith' ? 'bg-[var(--color-gold)]/10 text-[var(--color-gold)]' :
+          reference.type === 'quran' ? 'bg-[var(--color-teal)]/10 text-[var(--color-teal)]' :
+          reference.type === 'hadith' ? 'bg-[var(--color-gold)]/10 text-[var(--color-gold)]' :
           'bg-[var(--color-ink-light)]/10 text-[var(--color-ink-light)]'
         }`}>
-          {ref.type === 'quran' ? 'อัลกุรอาน' : ref.type === 'hadith' ? 'หะดีษ' : ref.type === 'athar' ? 'อะษัร' : 'อุละมาอ์'}
+          {reference.type === 'quran' ? 'อัลกุรอาน' : reference.type === 'hadith' ? 'หะดีษ' : reference.type === 'athar' ? 'อะษัร' : 'อุละมาอ์'}
         </span>
-        <span className="text-[10px] text-[var(--color-ink-light)]">{ref.source}</span>
+        <span className="text-[10px] text-[var(--color-ink-light)]">{reference.source}</span>
       </div>
-      {ref.textAr && (
+      {reference.textAr && (
         <p className="text-sm leading-[2] mb-1" dir="rtl" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
-          {ref.textAr}
+          {reference.textAr}
         </p>
       )}
-      <p className="text-xs text-[var(--color-ink-light)] leading-relaxed">{ref.textTh}</p>
-      {ref.url && (
-        <a href={ref.url} target="_blank" rel="noopener" className="text-[10px] text-[var(--color-teal)] hover:underline mt-1 inline-block">
+      <p className="text-xs text-[var(--color-ink-light)] leading-relaxed">{reference.textTh}</p>
+      {reference.url && (
+        <a href={reference.url} target="_blank" rel="noopener" className="text-[10px] text-[var(--color-teal)] hover:underline mt-1 inline-block">
           ดูแหล่งอ้างอิง →
         </a>
       )}
@@ -100,7 +100,7 @@ function TopicCard({ topic, isRead, onToggleRead, isExpanded, onToggle }: {
               <p className="text-[10px] font-semibold text-[var(--color-ink-light)] mb-2">หลักฐานอ้างอิง ({topic.references.length})</p>
               <div className="space-y-2">
                 {topic.references.map((ref, i) => (
-                  <ReferenceLink key={i} ref={ref} />
+                  <ReferenceLink key={i} reference={ref} />
                 ))}
               </div>
             </div>
@@ -124,7 +124,7 @@ function TopicCard({ topic, isRead, onToggleRead, isExpanded, onToggle }: {
                     {sub.references.length > 0 && (
                       <div className="mt-2 space-y-1">
                         {sub.references.map((ref, j) => (
-                          <ReferenceLink key={j} ref={ref} />
+                          <ReferenceLink key={j} reference={ref} />
                         ))}
                       </div>
                     )}
@@ -161,53 +161,160 @@ function TopicCard({ topic, isRead, onToggleRead, isExpanded, onToggle }: {
   );
 }
 
-// Mind Map Component
+// Mind Map Component — Interactive radial mind map with SVG connections
 function MindMap({ topics, readProgress, onSelectTopic }: { topics: Topic[]; readProgress: ReadProgress; onSelectTopic: (id: string) => void }) {
+  const [hoveredTopic, setHoveredTopic] = useState<string | null>(null);
+
+  // Group topics into categories for visual layout
+  const categories = [
+    { label: 'พื้นฐาน', color: '#2d6a6a', ids: ['topic-1'] },
+    { label: 'หลักฐานปฏิเสธ', color: '#c4793a', ids: ['topic-2', 'topic-3', 'topic-4'] },
+    { label: 'การปฏิเสธ', color: '#8b5e3c', ids: ['topic-5', 'topic-6', 'topic-7', 'topic-8', 'topic-9'] },
+    { label: 'ตอบโต้ & ทางเลือก', color: '#4a7c59', ids: ['topic-10', 'topic-11'] },
+    { label: 'ข้อโต้แย้ง & สรุป', color: '#6b5b8a', ids: ['topic-12', 'topic-13', 'topic-14'] },
+  ];
+
   return (
-    <div className="bg-[var(--color-paper)] rounded-xl border border-[var(--color-gold)]/15 p-4 sm:p-6 overflow-x-auto">
-      <h3 className="text-sm font-semibold text-[var(--color-ink)] mb-4 text-center">Mind Map</h3>
-      <div className="flex flex-col items-center gap-2 min-w-[300px]">
-        {/* Center node */}
-        <div className="bg-[var(--color-teal)] text-white rounded-xl px-4 py-2 text-xs font-semibold text-center max-w-[200px]">
-          การโต้แย้งเรื่องกิยาส
+    <div className="bg-[var(--color-paper)] rounded-xl border border-[var(--color-gold)]/15 p-3 sm:p-6 overflow-x-auto">
+      {/* SVG-based mind map */}
+      <div className="relative min-h-[600px] sm:min-h-[700px]" style={{ minWidth: '340px' }}>
+        {/* Central node */}
+        <div className="absolute left-1/2 top-6 -translate-x-1/2 z-20">
+          <div className="bg-[var(--color-teal)] text-white rounded-2xl px-5 py-3 text-center shadow-lg border-2 border-white/20">
+            <p className="text-xs sm:text-sm font-bold leading-tight">อัศ-ศอดิอ์</p>
+            <p className="text-[10px] sm:text-xs opacity-80 mt-0.5">โต้แย้งกิยาส ร็อยุ ตักลีด</p>
+          </div>
         </div>
-        <div className="w-px h-4 bg-[var(--color-gold)]" />
-        {/* Topic branches */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
-          {topics.map((topic) => {
-            const isRead = readProgress[topic.id] || false;
+
+        {/* SVG connections */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="line-grad-0" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#2d6a6a" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#2d6a6a" stopOpacity="0.15" />
+            </linearGradient>
+            <linearGradient id="line-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#c4793a" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#c4793a" stopOpacity="0.15" />
+            </linearGradient>
+            <linearGradient id="line-grad-2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8b5e3c" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#8b5e3c" stopOpacity="0.15" />
+            </linearGradient>
+            <linearGradient id="line-grad-3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#4a7c59" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#4a7c59" stopOpacity="0.15" />
+            </linearGradient>
+            <linearGradient id="line-grad-4" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#6b5b8a" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#6b5b8a" stopOpacity="0.15" />
+            </linearGradient>
+          </defs>
+          {/* Vertical trunk line from center */}
+          <line x1="50%" y1="60" x2="50%" y2="110" stroke="var(--color-teal)" strokeWidth="2" strokeOpacity="0.3" />
+          {/* Branch lines to each category */}
+          {categories.map((cat, i) => {
+            const yBase = 120 + i * 110;
             return (
-              <button
-                key={topic.id}
-                onClick={() => onSelectTopic(topic.id)}
-                className={`rounded-lg border p-3 text-left text-xs transition-all hover:shadow-sm ${
-                  isRead
-                    ? 'border-[var(--color-teal)]/30 bg-[var(--color-teal)]/5'
-                    : 'border-[var(--color-gold)]/15 bg-[var(--color-paper)] hover:border-[var(--color-teal)]/20'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded text-[9px] font-bold ${
-                    isRead ? 'bg-[var(--color-teal)] text-white' : 'bg-[var(--color-cream-dark)] text-[var(--color-ink-light)]'
-                  }`}>
-                    {isRead ? '✓' : topic.number}
-                  </span>
-                  <span className="font-medium text-[var(--color-ink)] line-clamp-2">{topic.titleTh}</span>
+              <g key={i}>
+                <line x1="50%" y1="110" x2="50%" y2={yBase} stroke={`url(#line-grad-${i})`} strokeWidth="2" />
+                <line x1="50%" y1={yBase} x2="20" y2={yBase} stroke={cat.color} strokeWidth="1.5" strokeOpacity="0.25" />
+                <line x1="50%" y1={yBase} x2="100%" y2={yBase} stroke={cat.color} strokeWidth="1.5" strokeOpacity="0.25" strokeDasharray="4 4" />
+              </g>
+            );
+          })}
+        </svg>
+
+        {/* Category branches */}
+        <div className="relative z-10 pt-20">
+          {categories.map((cat, catIdx) => {
+            const catTopics = cat.ids.map(id => topics.find(t => t.id === id)).filter(Boolean) as Topic[];
+            return (
+              <div key={catIdx} className="mt-4 first:mt-8">
+                {/* Category label */}
+                <div className="flex items-center gap-2 mb-2 px-2">
+                  <div className="h-3 w-3 rounded-full shrink-0" style={{ backgroundColor: cat.color, opacity: 0.7 }} />
+                  <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: cat.color }}>{cat.label}</span>
+                  <div className="flex-1 h-px" style={{ backgroundColor: cat.color, opacity: 0.15 }} />
                 </div>
-                {topic.subtopics.length > 0 && (
-                  <div className="mt-2 pl-7 space-y-0.5">
-                    {topic.subtopics.slice(0, 3).map((sub) => (
-                      <p key={sub.id} className="text-[10px] text-[var(--color-ink-light)] line-clamp-1">• {sub.titleTh}</p>
-                    ))}
-                    {topic.subtopics.length > 3 && (
-                      <p className="text-[10px] text-[var(--color-teal)]">+{topic.subtopics.length - 3} ประเด็นย่อย</p>
-                    )}
-                  </div>
-                )}
-              </button>
+                {/* Topic nodes */}
+                <div className="flex flex-wrap gap-2 px-2">
+                  {catTopics.map((topic) => {
+                    const isRead = readProgress[topic.id] || false;
+                    const isHovered = hoveredTopic === topic.id;
+                    return (
+                      <button
+                        key={topic.id}
+                        onClick={() => onSelectTopic(topic.id)}
+                        onMouseEnter={() => setHoveredTopic(topic.id)}
+                        onMouseLeave={() => setHoveredTopic(null)}
+                        className="relative group transition-all duration-200"
+                        style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
+                      >
+                        {/* Node */}
+                        <div className={`rounded-xl border-2 p-2.5 sm:p-3 text-left transition-all max-w-[220px] ${
+                          isRead
+                            ? 'border-[var(--color-teal)]/40 bg-[var(--color-teal)]/8 shadow-sm'
+                            : 'border-[var(--color-gold)]/20 bg-[var(--color-paper)] hover:border-[var(--color-teal)]/30 hover:shadow-md'
+                        }`}
+                        style={{ borderLeftColor: isRead ? 'var(--color-teal)' : cat.color, borderLeftWidth: '3px' }}
+                        >
+                          <div className="flex items-start gap-2">
+                            <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[10px] font-bold ${
+                              isRead ? 'bg-[var(--color-teal)] text-white' : 'text-white'
+                            }`} style={!isRead ? { backgroundColor: cat.color } : {}}>
+                              {isRead ? '\u2713' : topic.number}
+                            </span>
+                            <div className="min-w-0">
+                              <p className="text-[11px] sm:text-xs font-semibold text-[var(--color-ink)] leading-tight line-clamp-2">{topic.titleTh}</p>
+                              {topic.subtopics.length > 0 && (
+                                <p className="text-[9px] mt-1" style={{ color: cat.color }}>
+                                  {topic.subtopics.length} ประเด็นย่อย
+                                </p>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Expanded subtopics on hover (desktop) */}
+                          {isHovered && topic.subtopics.length > 0 && (
+                            <div className="hidden sm:block mt-2 pt-2 border-t border-[var(--color-gold)]/10">
+                              {topic.subtopics.slice(0, 4).map((sub) => (
+                                <p key={sub.id} className="text-[9px] text-[var(--color-ink-light)] leading-relaxed py-0.5 line-clamp-1">
+                                  <span className="inline-block w-1 h-1 rounded-full mr-1 -translate-y-px" style={{ backgroundColor: cat.color, opacity: 0.5 }} />
+                                  {sub.titleTh}
+                                </p>
+                              ))}
+                              {topic.subtopics.length > 4 && (
+                                <p className="text-[9px] mt-0.5" style={{ color: cat.color }}>+{topic.subtopics.length - 4} เพิ่มเติม</p>
+                              )}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Connection dot */}
+                        <div className="absolute -left-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full border-2 border-white"
+                          style={{ backgroundColor: isRead ? 'var(--color-teal)' : cat.color }} />
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             );
           })}
         </div>
+      </div>
+
+      {/* Legend */}
+      <div className="flex items-center justify-center gap-4 mt-4 pt-3 border-t border-[var(--color-gold)]/10">
+        <div className="flex items-center gap-1.5">
+          <div className="h-3 w-3 rounded bg-[var(--color-teal)]" />
+          <span className="text-[10px] text-[var(--color-ink-light)]">อ่านแล้ว</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="h-3 w-3 rounded bg-[var(--color-cream-dark)] border border-[var(--color-gold)]/20" />
+          <span className="text-[10px] text-[var(--color-ink-light)]">ยังไม่อ่าน</span>
+        </div>
+        <span className="text-[10px] text-[var(--color-ink-light)]">คลิกเพื่อไปยังประเด็น</span>
       </div>
     </div>
   );
