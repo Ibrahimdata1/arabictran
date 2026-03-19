@@ -47,10 +47,10 @@ export default function Navbar() {
               ห้องสมุด
             </Link>
             <Link
-              href="/transcribe"
+              href="/books/al-sadi-qiyas"
               className="text-sm font-medium text-[var(--color-ink-light)] hover:text-[var(--color-teal)] transition-colors"
             >
-              แปลคลิป
+              สรุปหนังสือ
             </Link>
             <Link
               href="/#about"
@@ -138,8 +138,8 @@ export default function Navbar() {
             <Link href="/#library" className="block px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)]" onClick={() => setMobileMenuOpen(false)}>
               ห้องสมุด
             </Link>
-            <Link href="/transcribe" className="block px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)]" onClick={() => setMobileMenuOpen(false)}>
-              แปลคลิป
+            <Link href="/books/al-sadi-qiyas" className="block px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)]" onClick={() => setMobileMenuOpen(false)}>
+              สรุปหนังสือ
             </Link>
             <Link href="/#reading-history" className="block px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-ink-light)] hover:bg-[var(--color-cream-dark)] hover:text-[var(--color-teal)]" onClick={() => setMobileMenuOpen(false)}>
               ประวัติการอ่าน
