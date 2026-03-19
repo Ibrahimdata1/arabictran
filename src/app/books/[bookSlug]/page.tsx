@@ -20,29 +20,29 @@ function ProgressBar({ read, total }: { read: number; total: number }) {
 
 function ReferenceLink({ reference }: { reference: { type: string; textAr: string; textTh: string; source: string; url?: string } }) {
   return (
-    <div className={`rounded-lg p-3 text-sm ${
+    <div className={`rounded-lg p-4 ${
       reference.type === 'quran' ? 'bg-[var(--color-verse-bg)] border border-[var(--color-verse-border)]/30' :
       reference.type === 'hadith' ? 'bg-[var(--color-hadith-bg)] border border-[var(--color-hadith-border)]/30' :
       'bg-[var(--color-cream)] border border-[var(--color-gold)]/15'
     }`}>
-      <div className="flex items-center gap-2 mb-1">
-        <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${
+      <div className="flex items-center gap-2 mb-2">
+        <span className={`text-sm font-semibold px-2 py-0.5 rounded ${
           reference.type === 'quran' ? 'bg-[var(--color-teal)]/10 text-[var(--color-teal)]' :
           reference.type === 'hadith' ? 'bg-[var(--color-gold)]/10 text-[var(--color-gold)]' :
           'bg-[var(--color-ink-light)]/10 text-[var(--color-ink-light)]'
         }`}>
           {reference.type === 'quran' ? 'อัลกุรอาน' : reference.type === 'hadith' ? 'หะดีษ' : reference.type === 'athar' ? 'อะษัร' : 'อุละมาอ์'}
         </span>
-        <span className="text-[10px] text-[var(--color-ink-light)]">{reference.source}</span>
+        <span className="text-sm text-[var(--color-ink-light)]">{reference.source}</span>
       </div>
       {reference.textAr && (
-        <p className="text-sm leading-[2] mb-1" dir="rtl" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
+        <p className="text-xl leading-[2.2] mb-2" dir="rtl" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
           {reference.textAr}
         </p>
       )}
-      <p className="text-xs text-[var(--color-ink-light)] leading-relaxed">{reference.textTh}</p>
+      <p className="text-base text-[var(--color-ink-light)] leading-relaxed">{reference.textTh}</p>
       {reference.url && (
-        <a href={reference.url} target="_blank" rel="noopener" className="text-[10px] text-[var(--color-teal)] hover:underline mt-1 inline-block">
+        <a href={reference.url} target="_blank" rel="noopener" className="text-sm text-[var(--color-teal)] hover:underline mt-2 inline-block">
           ดูแหล่งอ้างอิง →
         </a>
       )}
@@ -62,20 +62,20 @@ function TopicCard({ topic, isRead, onToggleRead, isExpanded, onToggle }: {
       isRead ? 'border-[var(--color-teal)]/20 bg-[var(--color-teal)]/3' : 'border-[var(--color-gold)]/15 bg-[var(--color-paper)]'
     }`}>
       {/* Header - always visible */}
-      <button onClick={onToggle} className="w-full flex items-start gap-3 p-4 text-left hover:bg-[var(--color-cream)] transition-colors">
-        <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${
+      <button onClick={onToggle} className="w-full flex items-start gap-3 p-5 text-left hover:bg-[var(--color-cream)] transition-colors">
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-base font-bold ${
           isRead ? 'bg-[var(--color-teal)] text-white' : 'bg-[var(--color-cream-dark)] text-[var(--color-ink-light)]'
         }`}>
           {isRead ? '✓' : topic.number}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-[var(--color-ink)]">{topic.titleTh}</p>
+          <p className="text-lg font-semibold text-[var(--color-ink)]">{topic.titleTh}</p>
           {topic.titleAr && (
-            <p className="text-xs text-[var(--color-ink-light)] mt-0.5" dir="rtl" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
+            <p className="text-base text-[var(--color-ink-light)] mt-1" dir="rtl" style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}>
               {topic.titleAr}
             </p>
           )}
-          {topic.page && <span className="text-[10px] text-[var(--color-ink-light)]">หน้า {topic.page}</span>}
+          {topic.page && <span className="text-sm text-[var(--color-ink-light)]">หน้า {topic.page}</span>}
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
           className={`shrink-0 text-[var(--color-ink-light)] transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
@@ -87,17 +87,17 @@ function TopicCard({ topic, isRead, onToggleRead, isExpanded, onToggle }: {
       {isExpanded && (
         <div className="px-4 pb-4 border-t border-[var(--color-gold)]/10">
           {/* Summary from book */}
-          <div className="mt-4">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[var(--color-teal)]/10 text-[var(--color-teal)]">สรุปจากเล่ม</span>
+          <div className="mt-5">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-sm font-semibold px-3 py-1 rounded-full bg-[var(--color-teal)]/10 text-[var(--color-teal)]">สรุปจากเล่ม</span>
             </div>
-            <p className="text-sm text-[var(--color-ink)] leading-relaxed">{topic.summary}</p>
+            <p className="text-base text-[var(--color-ink)] leading-relaxed">{topic.summary}</p>
           </div>
 
           {/* References */}
           {topic.references.length > 0 && (
-            <div className="mt-4">
-              <p className="text-[10px] font-semibold text-[var(--color-ink-light)] mb-2">หลักฐานอ้างอิง ({topic.references.length})</p>
+            <div className="mt-5">
+              <p className="text-sm font-semibold text-[var(--color-ink-light)] mb-3">หลักฐานอ้างอิง ({topic.references.length})</p>
               <div className="space-y-2">
                 {topic.references.map((ref, i) => (
                   <ReferenceLink key={i} reference={ref} />
@@ -108,17 +108,17 @@ function TopicCard({ topic, isRead, onToggleRead, isExpanded, onToggle }: {
 
           {/* Subtopics */}
           {topic.subtopics.length > 0 && (
-            <div className="mt-4">
-              <p className="text-[10px] font-semibold text-[var(--color-ink-light)] mb-2">ประเด็นย่อย ({topic.subtopics.length})</p>
-              <div className="space-y-3 pl-3 border-l-2 border-[var(--color-gold)]/15">
+            <div className="mt-5">
+              <p className="text-sm font-semibold text-[var(--color-ink-light)] mb-3">ประเด็นย่อย ({topic.subtopics.length})</p>
+              <div className="space-y-4 pl-4 border-l-2 border-[var(--color-gold)]/15">
                 {topic.subtopics.map((sub) => (
                   <div key={sub.id}>
-                    <p className="text-xs font-semibold text-[var(--color-ink)]">{sub.titleTh}</p>
-                    <p className="text-xs text-[var(--color-ink-light)] leading-relaxed mt-1">{sub.summary}</p>
+                    <p className="text-base font-semibold text-[var(--color-ink)]">{sub.titleTh}</p>
+                    <p className="text-[15px] text-[var(--color-ink-light)] leading-relaxed mt-1">{sub.summary}</p>
                     {sub.analysis && (
-                      <div className="mt-2 pl-3 border-l-2 border-[var(--color-teal)]/20">
-                        <span className="text-[9px] font-semibold text-[var(--color-teal)]">วิเคราะห์:</span>
-                        <p className="text-[11px] text-[var(--color-ink-light)] leading-relaxed">{sub.analysis}</p>
+                      <div className="mt-3 pl-4 border-l-2 border-[var(--color-teal)]/20">
+                        <span className="text-sm font-semibold text-[var(--color-teal)]">วิเคราะห์:</span>
+                        <p className="text-[15px] text-[var(--color-ink-light)] leading-relaxed mt-1">{sub.analysis}</p>
                       </div>
                     )}
                     {sub.references.length > 0 && (
@@ -136,18 +136,18 @@ function TopicCard({ topic, isRead, onToggleRead, isExpanded, onToggle }: {
 
           {/* Analysis */}
           {topic.analysis && (
-            <div className="mt-4 bg-[var(--color-teal)]/5 rounded-lg p-3 border border-[var(--color-teal)]/10">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[var(--color-teal)]/15 text-[var(--color-teal)]">บทวิเคราะห์</span>
+            <div className="mt-5 bg-[var(--color-teal)]/5 rounded-lg p-4 border border-[var(--color-teal)]/10">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-sm font-semibold px-3 py-1 rounded-full bg-[var(--color-teal)]/15 text-[var(--color-teal)]">บทวิเคราะห์</span>
               </div>
-              <p className="text-xs text-[var(--color-ink-light)] leading-relaxed">{topic.analysis}</p>
+              <p className="text-[15px] text-[var(--color-ink-light)] leading-relaxed">{topic.analysis}</p>
             </div>
           )}
 
           {/* Mark as read */}
           <button
             onClick={(e) => { e.stopPropagation(); onToggleRead(); }}
-            className={`mt-4 w-full rounded-lg py-2 text-xs font-medium transition-colors ${
+            className={`mt-5 w-full rounded-lg py-3 text-base font-medium transition-colors ${
               isRead
                 ? 'bg-[var(--color-cream-dark)] text-[var(--color-ink-light)] hover:bg-red-50 hover:text-red-500'
                 : 'bg-[var(--color-teal)] text-white hover:bg-[var(--color-teal-dark)]'
