@@ -192,36 +192,53 @@ function DebateCard({ point }: { point: DebatePoint }) {
 
       {expanded && (
         <div className="px-5 pb-5 border-t border-[var(--color-gold)]/10 space-y-4">
-          {/* Argument */}
+          {/* Argument + references inline */}
           <div className="mt-4">
             <span className={`text-sm font-semibold px-3 py-1 rounded-full ${isRefutation ? 'bg-orange-100 text-orange-700' : 'bg-amber-100 text-amber-800'}`}>
               {isRefutation ? 'หลักฐานที่ฝ่ายกิยาสอ้าง + การหักล้าง' : 'ข้อโต้แย้งของฝ่ายซอฮิรีย์'}
             </span>
-            <p className="text-base text-[var(--color-ink)] leading-relaxed mt-3">{point.argument}</p>
+            <p className="text-base text-[var(--color-ink)] leading-relaxed mt-3 whitespace-pre-line">{point.argument}</p>
+            {/* References embedded right after the argument text */}
+            {point.references.length > 0 && (
+              <div className="space-y-2 mt-3">
+                {point.references.map((ref, i) => (
+                  <ReferenceLink key={i} reference={ref} />
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* References */}
-          {point.references.length > 0 && (
-            <div className="space-y-2">
-              {point.references.map((ref, i) => (
-                <ReferenceLink key={i} reference={ref} />
-              ))}
-            </div>
-          )}
-
           {/* Pro-qiyas response */}
-          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200/50">
+          <div className="bg-blue-50/60 rounded-lg p-4 border border-blue-200/30">
             <span className="text-sm font-semibold text-blue-700">ฝ่ายกิยาสตอบว่า:</span>
-            <p className="text-base text-blue-900/80 leading-relaxed mt-2">{point.proQiyasResponse}</p>
+            <p className="text-base text-blue-900/70 leading-relaxed mt-2">{point.proQiyasResponse}</p>
           </div>
 
           {/* Why no answer */}
-          <div className={`rounded-lg p-4 border ${isRefutation ? 'bg-orange-50 border-orange-200/50' : 'bg-amber-50 border-amber-200/50'}`}>
+          <div className={`rounded-lg p-4 border ${isRefutation ? 'bg-orange-50/60 border-orange-200/30' : 'bg-amber-50/60 border-amber-200/30'}`}>
             <span className={`text-sm font-semibold ${isRefutation ? 'text-orange-700' : 'text-amber-800'}`}>
               {isRefutation ? 'ทำไมการหักล้างนี้แข็งแกร่ง:' : 'ทำไมคำตอบนี้ไม่เพียงพอ:'}
             </span>
-            <p className={`text-base leading-relaxed mt-2 ${isRefutation ? 'text-orange-900/80' : 'text-amber-900/80'}`}>{point.whyNoAnswer}</p>
+            <p className={`text-base leading-relaxed mt-2 whitespace-pre-line ${isRefutation ? 'text-orange-900/70' : 'text-amber-900/70'}`}>{point.whyNoAnswer}</p>
           </div>
+
+          {/* Source books */}
+          {point.sourceBooks.length > 0 && (
+            <div className="bg-[var(--color-cream)] rounded-lg p-4 border border-[var(--color-gold)]/15">
+              <span className="text-sm font-semibold text-[var(--color-ink-light)]">แหล่งอ้างอิงเล่มจริง:</span>
+              <div className="mt-2 space-y-1.5">
+                {point.sourceBooks.map((src, i) => (
+                  <a key={i} href={src.url} target="_blank" rel="noopener"
+                    className="flex items-center gap-2 text-sm text-[var(--color-teal)] hover:underline">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+                    </svg>
+                    <span>{src.title} — {src.author} {src.page && `(${src.page})`}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
