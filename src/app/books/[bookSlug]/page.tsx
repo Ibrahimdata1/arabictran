@@ -375,7 +375,15 @@ export default function BookSummaryPage() {
                   isRead={readProgress[topic.id] || false}
                   onToggleRead={() => toggleRead(topic.id)}
                   isExpanded={expandedTopic === topic.id}
-                  onToggle={() => setExpandedTopic(expandedTopic === topic.id ? null : topic.id)}
+                  onToggle={() => {
+                    const next = expandedTopic === topic.id ? null : topic.id;
+                    setExpandedTopic(next);
+                    if (next) {
+                      setTimeout(() => {
+                        document.getElementById(next)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }, 50);
+                    }
+                  }}
                 />
               </div>
             ))}
