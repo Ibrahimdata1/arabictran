@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import { BookSummary, Topic, ReadProgress } from '@/lib/book-summary-types';
 import { allBookSummaries } from '@/data/book-summaries';
+import { unanswerableArguments, DebatePoint } from '@/data/qiyas-debate';
 
 function ProgressBar({ read, total }: { read: number; total: number }) {
   const pct = total > 0 ? Math.round((read / total) * 100) : 0;
@@ -161,6 +162,72 @@ function TopicCard({ topic, isRead, onToggleRead, isExpanded, onToggle }: {
   );
 }
 
+// Debate Card Component
+function DebateCard({ point }: { point: DebatePoint }) {
+  const [expanded, setExpanded] = useState(false);
+  const isRefutation = point.category === 'refutation';
+
+  return (
+    <div className={`rounded-xl border overflow-hidden ${isRefutation ? 'border-orange-300/50 bg-orange-50/30' : 'border-red-300/50 bg-red-50/30'}`}>
+      <button onClick={() => {
+        setExpanded(!expanded);
+        if (!expanded) setTimeout(() => document.getElementById(point.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      }} className="w-full flex items-start gap-3 p-5 text-left hover:bg-white/50 transition-colors" id={point.id}>
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-base font-bold text-white ${isRefutation ? 'bg-orange-500' : 'bg-red-600'}`}>
+          {point.number}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${isRefutation ? 'bg-orange-100 text-orange-700' : 'bg-red-100 text-red-700'}`}>
+              {isRefutation ? 'หักล้างหลักฐาน' : 'ตอบไม่ได้'}
+            </span>
+          </div>
+          <p className="text-lg font-semibold text-[var(--color-ink)]">{point.title}</p>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+          className={`shrink-0 text-[var(--color-ink-light)] transition-transform ${expanded ? 'rotate-180' : ''}`}>
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+
+      {expanded && (
+        <div className="px-5 pb-5 border-t border-[var(--color-gold)]/10 space-y-4">
+          {/* Argument */}
+          <div className="mt-4">
+            <span className={`text-sm font-semibold px-3 py-1 rounded-full ${isRefutation ? 'bg-orange-100 text-orange-700' : 'bg-red-100 text-red-700'}`}>
+              {isRefutation ? 'หลักฐานที่ฝ่ายกิยาสอ้าง + การหักล้าง' : 'ข้อโต้แย้งของฝ่ายซอฮิรีย์'}
+            </span>
+            <p className="text-base text-[var(--color-ink)] leading-relaxed mt-3">{point.argument}</p>
+          </div>
+
+          {/* References */}
+          {point.references.length > 0 && (
+            <div className="space-y-2">
+              {point.references.map((ref, i) => (
+                <ReferenceLink key={i} reference={ref} />
+              ))}
+            </div>
+          )}
+
+          {/* Pro-qiyas response */}
+          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200/50">
+            <span className="text-sm font-semibold text-blue-700">ฝ่ายกิยาสตอบว่า:</span>
+            <p className="text-base text-blue-900/80 leading-relaxed mt-2">{point.proQiyasResponse}</p>
+          </div>
+
+          {/* Why no answer */}
+          <div className={`rounded-lg p-4 border ${isRefutation ? 'bg-orange-50 border-orange-200/50' : 'bg-red-50 border-red-200/50'}`}>
+            <span className={`text-sm font-semibold ${isRefutation ? 'text-orange-700' : 'text-red-700'}`}>
+              {isRefutation ? 'ทำไมการหักล้างนี้แข็งแกร่ง:' : 'ทำไมคำตอบนี้ไม่เพียงพอ:'}
+            </span>
+            <p className={`text-base leading-relaxed mt-2 ${isRefutation ? 'text-orange-900/80' : 'text-red-900/80'}`}>{point.whyNoAnswer}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Mind Map Component — Clean CSS-only design, no SVG overlap issues
 function MindMap({ topics, readProgress, onSelectTopic }: { topics: Topic[]; readProgress: ReadProgress; onSelectTopic: (id: string) => void }) {
   const [hoveredTopic, setHoveredTopic] = useState<string | null>(null);
@@ -288,7 +355,7 @@ export default function BookSummaryPage() {
 
   const [expandedTopic, setExpandedTopic] = useState<string | null>(null);
   const [readProgress, setReadProgress] = useState<ReadProgress>({});
-  const [activeView, setActiveView] = useState<'list' | 'mindmap'>('list');
+  const [activeView, setActiveView] = useState<'list' | 'mindmap' | 'debate'>('list');
 
   // Load progress from localStorage
   useEffect(() => {
@@ -342,20 +409,16 @@ export default function BookSummaryPage() {
 
         {/* View toggle */}
         <div className="flex gap-1 mb-5 bg-[var(--color-paper)] rounded-lg p-1.5 border border-[var(--color-gold)]/15">
-          <button
-            onClick={() => setActiveView('list')}
-            className={`flex-1 rounded-md px-4 py-3 text-base font-medium transition-colors ${
-              activeView === 'list' ? 'bg-[var(--color-teal)] text-white' : 'text-[var(--color-ink-light)]'
-            }`}
-          >
-            รายการประเด็น
+          <button onClick={() => setActiveView('list')}
+            className={`flex-1 rounded-md px-3 py-3 text-sm sm:text-base font-medium transition-colors ${activeView === 'list' ? 'bg-[var(--color-teal)] text-white' : 'text-[var(--color-ink-light)]'}`}>
+            ประเด็น
           </button>
-          <button
-            onClick={() => setActiveView('mindmap')}
-            className={`flex-1 rounded-md px-4 py-3 text-base font-medium transition-colors ${
-              activeView === 'mindmap' ? 'bg-[var(--color-teal)] text-white' : 'text-[var(--color-ink-light)]'
-            }`}
-          >
+          <button onClick={() => setActiveView('debate')}
+            className={`flex-1 rounded-md px-3 py-3 text-sm sm:text-base font-medium transition-colors ${activeView === 'debate' ? 'bg-red-600 text-white' : 'text-[var(--color-ink-light)]'}`}>
+            โต้แย้ง & หักล้าง
+          </button>
+          <button onClick={() => setActiveView('mindmap')}
+            className={`flex-1 rounded-md px-3 py-3 text-sm sm:text-base font-medium transition-colors ${activeView === 'mindmap' ? 'bg-[var(--color-teal)] text-white' : 'text-[var(--color-ink-light)]'}`}>
             Mind Map
           </button>
         </div>
@@ -363,6 +426,21 @@ export default function BookSummaryPage() {
         {/* Mind Map View */}
         {activeView === 'mindmap' && (
           <MindMap topics={book.topics} readProgress={readProgress} onSelectTopic={scrollToTopic} />
+        )}
+
+        {/* Debate View */}
+        {activeView === 'debate' && (
+          <div className="space-y-4">
+            {/* Section headers */}
+            <div className="bg-red-50 border border-red-200 rounded-xl p-4 sm:p-5">
+              <h3 className="text-lg font-bold text-red-700 mb-1">ข้อโต้แย้งที่ฝ่ายกิยาสตอบไม่ได้ + หักล้างหลักฐาน</h3>
+              <p className="text-base text-red-600/70">รวมประเด็นที่แข็งแกร่งที่สุดจากฝ่ายซอฮิรีย์ พร้อมวิเคราะห์ว่าทำไมฝ่ายกิยาสตอบไม่ได้</p>
+            </div>
+
+            {unanswerableArguments.map((point) => (
+              <DebateCard key={point.id} point={point} />
+            ))}
+          </div>
         )}
 
         {/* List View */}
