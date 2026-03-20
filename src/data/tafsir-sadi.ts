@@ -645,4 +645,6 @@ tafsirSadi.chapters.push(...juzAmmaPart2);
 // Sort chapters by number
 tafsirSadi.chapters.sort((a, b) => a.number - b.number);
 
-export const allBooks: Book[] = [tafsirSadi];
+import { alSadiFullBook } from './alsadi-book';
+
+export const allBooks: Book[] = [tafsirSadi, alSadiFullBook];
