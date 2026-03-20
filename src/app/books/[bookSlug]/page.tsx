@@ -168,17 +168,17 @@ function DebateCard({ point }: { point: DebatePoint }) {
   const isRefutation = point.category === 'refutation';
 
   return (
-    <div className={`rounded-xl border overflow-hidden ${isRefutation ? 'border-orange-300/50 bg-orange-50/30' : 'border-red-300/50 bg-red-50/30'}`}>
+    <div className={`rounded-xl border overflow-hidden ${isRefutation ? 'border-orange-300/50 bg-orange-50/30' : 'border-amber-300/40 bg-amber-50/30'}`}>
       <button onClick={() => {
         setExpanded(!expanded);
         if (!expanded) setTimeout(() => document.getElementById(point.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
       }} className="w-full flex items-start gap-3 p-5 text-left hover:bg-white/50 transition-colors" id={point.id}>
-        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-base font-bold text-white ${isRefutation ? 'bg-orange-500' : 'bg-red-600'}`}>
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-base font-bold text-white ${isRefutation ? 'bg-orange-500' : 'bg-amber-700'}`}>
           {point.number}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${isRefutation ? 'bg-orange-100 text-orange-700' : 'bg-red-100 text-red-700'}`}>
+            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${isRefutation ? 'bg-orange-100 text-orange-700' : 'bg-amber-100 text-amber-800'}`}>
               {isRefutation ? 'หักล้างหลักฐาน' : 'ตอบไม่ได้'}
             </span>
           </div>
@@ -194,7 +194,7 @@ function DebateCard({ point }: { point: DebatePoint }) {
         <div className="px-5 pb-5 border-t border-[var(--color-gold)]/10 space-y-4">
           {/* Argument */}
           <div className="mt-4">
-            <span className={`text-sm font-semibold px-3 py-1 rounded-full ${isRefutation ? 'bg-orange-100 text-orange-700' : 'bg-red-100 text-red-700'}`}>
+            <span className={`text-sm font-semibold px-3 py-1 rounded-full ${isRefutation ? 'bg-orange-100 text-orange-700' : 'bg-amber-100 text-amber-800'}`}>
               {isRefutation ? 'หลักฐานที่ฝ่ายกิยาสอ้าง + การหักล้าง' : 'ข้อโต้แย้งของฝ่ายซอฮิรีย์'}
             </span>
             <p className="text-base text-[var(--color-ink)] leading-relaxed mt-3">{point.argument}</p>
@@ -216,11 +216,11 @@ function DebateCard({ point }: { point: DebatePoint }) {
           </div>
 
           {/* Why no answer */}
-          <div className={`rounded-lg p-4 border ${isRefutation ? 'bg-orange-50 border-orange-200/50' : 'bg-red-50 border-red-200/50'}`}>
-            <span className={`text-sm font-semibold ${isRefutation ? 'text-orange-700' : 'text-red-700'}`}>
+          <div className={`rounded-lg p-4 border ${isRefutation ? 'bg-orange-50 border-orange-200/50' : 'bg-amber-50 border-amber-200/50'}`}>
+            <span className={`text-sm font-semibold ${isRefutation ? 'text-orange-700' : 'text-amber-800'}`}>
               {isRefutation ? 'ทำไมการหักล้างนี้แข็งแกร่ง:' : 'ทำไมคำตอบนี้ไม่เพียงพอ:'}
             </span>
-            <p className={`text-base leading-relaxed mt-2 ${isRefutation ? 'text-orange-900/80' : 'text-red-900/80'}`}>{point.whyNoAnswer}</p>
+            <p className={`text-base leading-relaxed mt-2 ${isRefutation ? 'text-orange-900/80' : 'text-amber-900/80'}`}>{point.whyNoAnswer}</p>
           </div>
         </div>
       )}
@@ -414,7 +414,7 @@ export default function BookSummaryPage() {
             ประเด็น
           </button>
           <button onClick={() => setActiveView('debate')}
-            className={`flex-1 rounded-md px-3 py-3 text-sm sm:text-base font-medium transition-colors ${activeView === 'debate' ? 'bg-red-600 text-white' : 'text-[var(--color-ink-light)]'}`}>
+            className={`flex-1 rounded-md px-3 py-3 text-sm sm:text-base font-medium transition-colors ${activeView === 'debate' ? 'bg-amber-700 text-white' : 'text-[var(--color-ink-light)]'}`}>
             โต้แย้ง & หักล้าง
           </button>
           <button onClick={() => setActiveView('mindmap')}
@@ -432,9 +432,9 @@ export default function BookSummaryPage() {
         {activeView === 'debate' && (
           <div className="space-y-4">
             {/* Section headers */}
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 sm:p-5">
-              <h3 className="text-lg font-bold text-red-700 mb-1">ข้อโต้แย้งที่ฝ่ายกิยาสตอบไม่ได้ + หักล้างหลักฐาน</h3>
-              <p className="text-base text-red-600/70">รวมประเด็นที่แข็งแกร่งที่สุดจากฝ่ายซอฮิรีย์ พร้อมวิเคราะห์ว่าทำไมฝ่ายกิยาสตอบไม่ได้</p>
+            <div className="bg-amber-50/50 border border-amber-200/50 rounded-xl p-4 sm:p-5">
+              <h3 className="text-lg font-bold text-amber-800 mb-1">ข้อโต้แย้งที่ฝ่ายกิยาสตอบไม่ได้ + หักล้างหลักฐาน</h3>
+              <p className="text-base text-amber-700/70">รวมประเด็นที่แข็งแกร่งที่สุดจากฝ่ายซอฮิรีย์ พร้อมวิเคราะห์ว่าทำไมฝ่ายกิยาสตอบไม่ได้</p>
             </div>
 
             {unanswerableArguments.map((point) => (
