@@ -10,10 +10,22 @@ export interface DebatePoint {
   category: 'unanswerable' | 'refutation';
 }
 
-const SRC_SADI = { title: 'อัศ-ศอดิอ์ ฟิร ร็อดดิ อะลา มัน กอละ บิลกิยาส', author: 'อิบนุ ฮัซม์ / ตะห์กีก: มัชฮูร ฮะสัน', url: 'https://archive.org/details/alsade3' };
-const SRC_IHKAM = { title: 'อัล-อิห์กาม ฟี อุศูลิล อะห์กาม', author: 'อิบนุ ฮัซม์', url: 'https://shamela.ws/book/428' };
-const SRC_ILAM = { title: 'อิอ์ลามุล มุวักกิอีน', author: 'อิบนุล ก็อยยิม', url: 'https://shamela.ws/book/738' };
-const SRC_IRWA = { title: 'อิรวาอุล เฆาะลีล', author: 'เชค อัลบานีย์', url: 'https://shamela.ws/book/21596' };
+// Deep link helpers — ไปถึงหน้าจริงเลย
+const sadiPage = (page: number) => `https://archive.org/details/alsade3/page/n${page}/mode/2up`;
+const shamelaPage = (bookId: number, page: number) => `https://shamela.ws/book/${bookId}/${page}`;
+
+function srcSadi(fiqra: string, page: number) {
+  return { title: 'อัศ-ศอดิอ์', author: 'อิบนุ ฮัซม์ / ตะห์กีก: มัชฮูร ฮะสัน', page: fiqra, url: sadiPage(page) };
+}
+function srcIhkam(section: string, page: number) {
+  return { title: 'อัล-อิห์กาม', author: 'อิบนุ ฮัซม์', page: section, url: shamelaPage(428, page) };
+}
+function srcIlam(section: string, page: number) {
+  return { title: 'อิอ์ลามุล มุวักกิอีน', author: 'อิบนุล ก็อยยิม', page: section, url: shamelaPage(738, page) };
+}
+function srcIrwa(section: string, page: number) {
+  return { title: 'อิรวาอุล เฆาะลีล', author: 'เชค อัลบานีย์', page: section, url: shamelaPage(21596, page) };
+}
 
 export const unanswerableArguments: DebatePoint[] = [
   {
@@ -26,8 +38,8 @@ export const unanswerableArguments: DebatePoint[] = [
       { type: 'hadith', textAr: 'الذهب بالذهب والفضة بالفضة والبر بالبر والشعير بالشعير والتمر بالتمر والملح بالملح مثلاً بمثل سواء بسواء يداً بيد', textTh: 'ทองด้วยทอง เงินด้วยเงิน ข้าวสาลีด้วยข้าวสาลี ข้าวบาร์เลย์ด้วยข้าวบาร์เลย์ อินทผลัมด้วยอินทผลัม เกลือด้วยเกลือ เท่ากัน เสมอกัน มือต่อมือ', source: 'เศาะฮีห์ มุสลิม 1587', url: 'https://sunnah.com/muslim:1587a' },
     ],
     sourceBooks: [
-      { ...SRC_SADI, page: 'ฟิกเราะฮ์ 207' },
-      { ...SRC_IHKAM, page: 'เล่ม 7 บทกิยาส' },
+      srcSadi('ฟิกเราะฮ์ 207', 490),
+      srcIhkam('เล่ม 7 บทกิยาส', 1259),
     ],
   },
   {
@@ -40,8 +52,8 @@ export const unanswerableArguments: DebatePoint[] = [
       { type: 'athar', textAr: 'لو كان الدين بالرأي لكان أسفل الخف أولى بالمسح من أعلاه، ولكنني رأيت رسول الله صلى الله عليه وسلم يمسح على ظاهر خفيه', textTh: 'ถ้าศาสนาตัดสินด้วยร็อยุ ก้นรองเท้าหนังน่าจะสมควรเช็ดมากกว่าหลังรองเท้า แต่ฉันเห็นท่านนบีเช็ดหลังรองเท้า', source: 'สุนัน อบูดาวูด 162', url: 'https://sunnah.com/abudawud:162' },
     ],
     sourceBooks: [
-      { ...SRC_SADI, page: 'ฟิกเราะฮ์ 301' },
-      { ...SRC_ILAM, page: 'เล่ม 1 หน้า 339' },
+      srcSadi('ฟิกเราะฮ์ 301', 581),
+      srcIlam('เล่ม 1 หน้า 339', 339),
     ],
   },
   {
@@ -52,8 +64,8 @@ export const unanswerableArguments: DebatePoint[] = [
     whyNoAnswer: 'ไม่เพียงพอ เพราะ:\n\n1. ไม่มีตัวบทระบุว่าอิลละฮ์ของริบากับซะกาตุลฟิฏร์ต่างกัน — เป็นการ "เลือก" อิลละฮ์ที่สะดวก\n2. ถ้ากิยาสเป็นหลักการที่ถูกต้อง ต้องใช้สม่ำเสมอ ไม่ใช่เลือกใช้\n3. ยิ่งพิสูจน์ว่ากิยาสขึ้นอยู่กับ "ความเห็นส่วนตัว" ของมุจตะฮิดแต่ละคน ไม่ใช่ "หลักฐาน"',
     references: [],
     sourceBooks: [
-      { ...SRC_SADI, page: 'ฟิกเราะฮ์ 218-220' },
-      { ...SRC_IHKAM, page: 'เล่ม 8 บาบริบา' },
+      srcSadi('ฟิกเราะฮ์ 218-220', 501),
+      srcIhkam('เล่ม 8 บาบริบา', 1380),
     ],
   },
   {
@@ -67,8 +79,8 @@ export const unanswerableArguments: DebatePoint[] = [
       { type: 'scholar', textAr: 'لا تقلدني ولا تقلد مالكًا ولا الشافعي وخذ من حيث أخذوا', textTh: 'อย่าตามฉัน อย่าตามมาลิก อย่าตามอัช-ชาฟิอีย์ แต่จงเอาจากที่พวกเขาเอา', source: 'อิมามอะห์มัด (อิอ์ลามุล มุวักกิอีน 2/302)' },
     ],
     sourceBooks: [
-      { ...SRC_SADI, page: 'บทตักลีด ฟิกเราะฮ์ 250+' },
-      { ...SRC_ILAM, page: 'เล่ม 2 หน้า 302' },
+      srcSadi('บทตักลีด ฟิกเราะฮ์ 250+', 530),
+      srcIlam('เล่ม 2 หน้า 302', 602),
     ],
   },
   {
@@ -82,7 +94,7 @@ export const unanswerableArguments: DebatePoint[] = [
       { type: 'athar', textAr: 'إنكم إن عملتم في دينكم بالقياس أحللتم كثيرًا مما حرم الله وحرمتم كثيرًا مما حلل الله', textTh: 'ถ้าพวกเจ้าใช้กิยาสในศาสนา พวกเจ้าจะอนุมัติสิ่งที่อัลลอฮ์ห้ามมากมาย และจะห้ามสิ่งที่อัลลอฮ์อนุมัติมากมาย', source: 'อิบนุ มัสอูด (อัศ-ศอดิอ์ ฟิกเราะฮ์ 312)' },
     ],
     sourceBooks: [
-      { ...SRC_SADI, page: 'ฟิกเราะฮ์ 291-340' },
+      srcSadi('ฟิกเราะฮ์ 291-340', 571),
     ],
   },
   {
@@ -95,7 +107,7 @@ export const unanswerableArguments: DebatePoint[] = [
       { type: 'hadith', textAr: 'نهى النبي صلى الله عليه وسلم عن لحوم الحمر الأهلية وأذن في لحوم الخيل', textTh: 'ท่านนบีห้ามเนื้อลาบ้านและอนุญาตเนื้อม้า', source: 'เศาะฮีห์ บุคอรีย์ 5520', url: 'https://sunnah.com/bukhari:5520' },
     ],
     sourceBooks: [
-      { ...SRC_SADI, page: 'ฟิกเราะฮ์ 211' },
+      srcSadi('ฟิกเราะฮ์ 211', 494),
     ],
   },
   {
@@ -135,8 +147,8 @@ export const unanswerableArguments: DebatePoint[] = [
       { type: 'hadith', textAr: 'كل مسكر حرام', textTh: 'ทุกสิ่งที่มึนเมาเป็นหะรอม', source: 'เศาะฮีห์ มุสลิม 2003', url: 'https://sunnah.com/muslim:2003a' },
     ],
     sourceBooks: [
-      { ...SRC_IHKAM, page: 'เล่ม 7' },
-      { ...SRC_ILAM, page: 'เล่ม 1' },
+      srcIhkam('เล่ม 7 ดะลีล vs กิยาส', 1200),
+      srcIlam('เล่ม 1 บทดะลีล', 250),
     ],
   },
 
@@ -151,7 +163,7 @@ export const unanswerableArguments: DebatePoint[] = [
       { type: 'quran', textAr: 'فَاعْتَبِرُوا يَا أُولِي الْأَبْصَارِ', textTh: 'จงรับบทเรียนเถิด โอ้ผู้มีสายตา (ปัญญา)', source: 'อัล-หัชร์ 59:2', url: 'https://quran.com/59/2' },
     ],
     sourceBooks: [
-      { ...SRC_SADI, page: 'ฟิกเราะฮ์ 97-106' },
+      srcSadi('ฟิกเราะฮ์ 97-106', 380),
     ],
   },
   {
@@ -164,8 +176,8 @@ export const unanswerableArguments: DebatePoint[] = [
       { type: 'hadith', textAr: 'بم تحكم؟ قال: بكتاب الله. قال: فإن لم تجد؟ قال: بسنة رسول الله. قال: فإن لم تجد؟ قال: أجتهد رأيي', textTh: '"เจ้าจะตัดสินด้วยอะไร?" — "ด้วยคัมภีร์ของอัลลอฮ์" — "ถ้าไม่พบ?" — "ด้วยซุนนะฮ์" — "ถ้าไม่พบ?" — "ฉันจะอิจติฮาด"', source: 'อบูดาวูด 3592 — ฎออีฟสายรายงาน (อัลบานีย์: อิรวาอุลเฆาะลีล 8/243)', url: 'https://sunnah.com/abudawud:3592' },
     ],
     sourceBooks: [
-      { ...SRC_SADI, page: 'ฟิกเราะฮ์ 30 (เชิงอรรถ)' },
-      { ...SRC_IRWA, page: 'เล่ม 8 หน้า 243' },
+      srcSadi('ฟิกเราะฮ์ 30 (เชิงอรรถยาว)', 313),
+      srcIrwa('เล่ม 8 หน้า 243', 243),
     ],
   },
   {
@@ -178,7 +190,7 @@ export const unanswerableArguments: DebatePoint[] = [
       { type: 'hadith', textAr: 'أصحابي كالنجوم بأيهم اقتديتم اهتديتم', textTh: 'เศาะหาบะฮ์ของฉันเหมือนดวงดาว ตามใครก็จะได้ทางนำ', source: 'เมาฎูอ์ (อุปโลกน์) — ซิลซิละฮ์ อัฎ-ฎออีฟะฮ์ 58' },
     ],
     sourceBooks: [
-      { ...SRC_SADI, page: 'ฟิกเราะฮ์ 272' },
+      srcSadi('ฟิกเราะฮ์ 272', 552),
       { title: 'ซิลซิละฮ์ อัล-อะหาดีษ อัฎ-ฎออีฟะฮ์', author: 'เชค อัลบานีย์', page: 'หะดีษ 58', url: 'https://shamela.ws/book/6389' },
     ],
   },
@@ -192,7 +204,7 @@ export const unanswerableArguments: DebatePoint[] = [
       { type: 'quran', textAr: 'وَلَوْ رَدُّوهُ إِلَى الرَّسُولِ وَإِلَىٰ أُولِي الْأَمْرِ مِنْهُمْ لَعَلِمَهُ الَّذِينَ يَسْتَنبِطُونَهُ مِنْهُمْ', textTh: 'ถ้าพวกเขาส่งกลับไปยังศาสนทูตและอุลิลอัมร์ บรรดาผู้ที่สามารถสกัดจากพวกเขาจะรู้', source: 'อัน-นิสาอ์ 4:83', url: 'https://quran.com/4/83' },
     ],
     sourceBooks: [
-      { ...SRC_SADI, page: 'ฟิกเราะฮ์ 106' },
+      srcSadi('ฟิกเราะฮ์ 106', 389),
     ],
   },
   {
@@ -203,7 +215,7 @@ export const unanswerableArguments: DebatePoint[] = [
     whyNoAnswer: '1. การเปรียบเทียบเพื่อ "ทำความเข้าใจ" ≠ การเทียบเคียงเพื่อ "สร้างบทบัญญัติใหม่"\n2. หุก่มมีอยู่แล้วจากคำสั่งท่านนบี — ท่านแค่อธิบายให้เข้าใจ\n3. ครูสอนนักเรียนด้วยตัวอย่างเปรียบเทียบ ≠ นักเรียนสร้างวิชาใหม่ด้วยตัวอย่าง',
     references: [],
     sourceBooks: [
-      { ...SRC_SADI, page: 'ฟิกเราะฮ์ 110-111' },
+      srcSadi('ฟิกเราะฮ์ 110-111', 393),
       { title: 'เศาะฮีห์ อัล-บุคอรีย์', author: 'อิมาม บุคอรีย์', page: 'หะดีษ 1953', url: 'https://sunnah.com/bukhari:1953' },
     ],
   },
